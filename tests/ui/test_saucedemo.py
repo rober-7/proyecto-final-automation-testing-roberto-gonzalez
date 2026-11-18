@@ -16,7 +16,7 @@ from datos.test_data import (
     INVALID_USER,
     VALID_USER,
 )
-from utils.pages import CartPage, InventoryPage, LoginPage
+from pages import CartPage, InventoryPage, LoginPage
 
 
 def iniciar_sesion_y_obtener_inventario(driver):
