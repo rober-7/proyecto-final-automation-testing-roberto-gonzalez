@@ -21,6 +21,7 @@ class InventoryPage(BasePage):
     def wait_until_loaded(self):
         self.wait_for_url("/inventory.html")
         self.find(self.INVENTORY_CONTAINER)
+        self.log.info("Pagina de inventario cargada")
         return self
 
     def get_page_title(self):
@@ -39,13 +40,18 @@ class InventoryPage(BasePage):
         primer_producto = self.get_products()[0]
         nombre = primer_producto.find_element(*self.PRODUCT_NAME).text
         precio = primer_producto.find_element(*self.PRODUCT_PRICE).text
+        self.log.info("Primer producto del catalogo: '%s' (%s)", nombre, precio)
         return nombre, precio
 
     def add_first_product_to_cart(self):
+        self.log.info("Agregando el primer producto al carrito")
         self.click(self.FIRST_ADD_TO_CART_BUTTON)
 
     def get_cart_badge_count(self):
-        return int(self.get_text(self.CART_BADGE))
+        cantidad = int(self.get_text(self.CART_BADGE))
+        self.log.info("Contador del carrito: %d", cantidad)
+        return cantidad
 
     def go_to_cart(self):
+        self.log.info("Navegando al carrito")
         self.click(self.CART_LINK)
