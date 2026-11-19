@@ -26,3 +26,12 @@ class CartPage(BasePage):
         ]
         self.log.info("Productos en el carrito: %s", nombres)
         return nombres
+
+    def get_cart_items_with_price(self):
+        """Devuelve un diccionario {nombre del producto: precio} con lo que hay en el carrito."""
+        productos = {
+            item.find_element(*self.CART_ITEM_NAME).text: item.find_element(*self.CART_ITEM_PRICE).text
+            for item in self.get_cart_items()
+        }
+        self.log.info("Productos y precios en el carrito: %s", productos)
+        return productos

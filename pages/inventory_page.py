@@ -12,6 +12,7 @@ class InventoryPage(BasePage):
     PRODUCT_ITEMS = (By.CLASS_NAME, "inventory_item")
     PRODUCT_NAME = (By.CLASS_NAME, "inventory_item_name")
     PRODUCT_PRICE = (By.CLASS_NAME, "inventory_item_price")
+    PRODUCT_BUTTON = (By.TAG_NAME, "button")
     FIRST_ADD_TO_CART_BUTTON = (By.CSS_SELECTOR, ".inventory_item button")
     MENU_BUTTON = (By.ID, "react-burger-menu-btn")
     PRODUCT_SORT_FILTER = (By.CLASS_NAME, "product_sort_container")
@@ -46,6 +47,15 @@ class InventoryPage(BasePage):
     def add_first_product_to_cart(self):
         self.log.info("Agregando el primer producto al carrito")
         self.click(self.FIRST_ADD_TO_CART_BUTTON)
+
+    def add_product_to_cart(self, nombre_producto):
+        """Busca el producto por su nombre en el catalogo y clickea su boton 'Add to cart'."""
+        self.log.info("Agregando al carrito: '%s'", nombre_producto)
+        for producto in self.get_products():
+            if producto.find_element(*self.PRODUCT_NAME).text == nombre_producto:
+                producto.find_element(*self.PRODUCT_BUTTON).click()
+                return
+        raise ValueError(f"El producto '{nombre_producto}' no existe en el catalogo")
 
     def get_cart_badge_count(self):
         cantidad = int(self.get_text(self.CART_BADGE))
