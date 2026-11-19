@@ -1,103 +1,181 @@
-# Pre-Entrega de Proyecto — Automatización QA con Selenium y Pytest
+# Framework de Automatización de Pruebas — Tienda online + API
 
-## Propósito del proyecto
+**Autor:** Roberto González · Proyecto final del curso de *Automation Testing* (QA)
 
-Suite de automatización de pruebas end-to-end sobre [saucedemo.com](https://www.saucedemo.com/), desarrollada como pre-entrega del curso de Automation Testing. Cubre tres flujos críticos de la aplicación:
+---
 
-1. **Login**: inicio de sesión con credenciales válidas y validación de redirección al inventario.
-2. **Catálogo**: verificación del título de la página, presencia de productos y elementos de interfaz (menú, filtro de orden).
-3. **Carrito**: agregado de un producto, verificación del contador del carrito y del listado de productos dentro del carrito.
+## En pocas palabras
 
-## Tecnologías utilizadas
+Este proyecto es un **robot que prueba un sitio web de forma automática**, como lo haría una persona del equipo de calidad (QA), pero en minutos y sin cansarse.
 
-- **Python 3.12**
-- **Selenium WebDriver 4** — automatización del navegador
-- **Pytest** — framework de testing
-- **pytest-html** — generación de reportes HTML
-- **webdriver-manager** — gestión automática del ChromeDriver
-- **Google Chrome** como navegador objetivo
+El robot abre el navegador, entra a una tienda online de práctica ([saucedemo.com](https://www.saucedemo.com/)), inicia sesión, recorre el catálogo, agrega productos al carrito y **verifica que todo funcione como debe**. Si algo falla:
 
-## Estructura del proyecto
+- 📸 **saca una foto de la pantalla** en el momento del error,
+- 📝 **deja un registro paso a paso** de lo que hizo,
+- 📊 **arma un reporte visual** con lo que pasó y lo que falló.
 
-```
-pre-entrega-automationtesting-robert-gonzalez/
-├── tests/
-│   ├── conftest.py          # Fixture del driver + hook de captura en fallos
-│   └── test_saucedemo.py    # Casos de prueba: login, catálogo y carrito
-├── utils/
-│   ├── locators.py          # Localizadores (By) de cada página
-│   └── pages.py             # Page Objects (LoginPage, InventoryPage, CartPage)
-├── datos/
-│   └── test_data.py         # Credenciales y valores esperados
-├── reports/
-│   ├── reporte.html         # Reporte HTML generado por pytest-html
-│   └── screenshots/         # Capturas automáticas ante fallos
-├── requirements.txt
-├── pytest.ini
-└── README.md
-```
+### ¿Por qué importa esto en una empresa?
 
-El proyecto sigue el patrón **Page Object Model**: los localizadores y las acciones sobre cada página viven en `utils/`, separados de los casos de prueba en `tests/`.
+| Sin automatización | Con este framework |
+|---|---|
+| Una persona repite las mismas pruebas a mano antes de cada versión | Las pruebas corren solas con un comando |
+| Probar todo lleva horas | Lleva alrededor de un minuto |
+| Es fácil saltearse un caso | Siempre se ejecutan todos los casos |
+| Cuando algo falla, hay que reproducirlo | Ya hay foto, registro y reporte del error |
 
-## Instalación de dependencias
+### Qué demuestra este proyecto
 
-1. Clonar el repositorio:
-   ```bash
-   git clone <url-del-repositorio>
-   cd pre-entrega-automationtesting-robert-gonzalez
-   ```
+- **Diseño de casos de prueba**: caminos felices (todo sale bien) y caminos negativos (contraseña incorrecta, usuario bloqueado, campos vacíos).
+- **Código ordenado y fácil de mantener**: si la página cambia, se corrige en un solo lugar (patrón *Page Object Model*).
+- **Pruebas guiadas por datos**: los usuarios y productos a probar están en planillas (CSV/JSON). Se agregan casos nuevos **sin programar**.
+- **Evidencia y trazabilidad**: reportes, capturas de pantalla y registros detallados.
+- **Trabajo profesional con Git**: cada funcionalidad se desarrolló en una rama propia y se integró después (ver historial de commits).
 
-2. Crear y activar un entorno virtual:
-   ```bash
-   python -m venv venv
-   # Windows
-   venv\Scripts\activate
-   # Linux / Mac
-   source venv/bin/activate
-   ```
+### Qué se prueba hoy
 
-3. Instalar las dependencias:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-> No es necesario descargar ChromeDriver manualmente: `webdriver-manager` detecta la versión de Chrome instalada y descarga el driver correspondiente automáticamente. Se requiere tener Google Chrome instalado.
-
-## Cómo ejecutar las pruebas
-
-Ejecutar toda la suite con reporte HTML:
-
-```bash
-pytest tests/test_saucedemo.py -v --html=reports/reporte.html --self-contained-html
-```
-
-Ejecutar solo un grupo de pruebas (por clase):
-
-```bash
-pytest tests/test_saucedemo.py::TestLogin -v
-pytest tests/test_saucedemo.py::TestCatalog -v
-pytest tests/test_saucedemo.py::TestCart -v
-```
-
-Ejecutar en modo **headless** (sin abrir la ventana del navegador, útil para CI):
-
-```bash
-pytest tests/test_saucedemo.py -v --headless --html=reports/reporte.html --self-contained-html
-```
-
-El reporte se genera en `reports/reporte.html`. Si algún test falla, se guarda automáticamente una captura de pantalla en `reports/screenshots/`. El log de la última ejecución queda en `reports/logs/execution_log.txt`.
-
-## Casos de prueba
-
-| Clase | Test | Qué valida |
+| Área | Qué verifica el robot | Casos |
 |---|---|---|
-| `TestLogin` | `test_login_exitoso_redirige_a_pagina_de_inventario` | Login con `standard_user` redirige a `/inventory.html` y el título es "Products" |
-| `TestLogin` | `test_login_con_credenciales_invalidas_muestra_mensaje_de_error` | Login con credenciales incorrectas muestra el mensaje de error y no redirige al inventario |
-| `TestCatalog` | `test_titulo_de_pagina_de_inventario_es_correcto` | El título de la página de inventario es correcto |
-| `TestCatalog` | `test_existen_productos_visibles_en_el_catalogo` | Hay al menos un producto visible |
-| `TestCatalog` | `test_elementos_importantes_de_la_interfaz_estan_presentes` | El menú y el filtro de orden están presentes |
-| `TestCatalog` | `test_lista_nombre_y_precio_del_primer_producto` | Se obtiene correctamente el nombre y precio del primer producto |
-| `TestCart` | `test_agregar_producto_incrementa_contador_del_carrito` | Al agregar un producto, el contador del carrito pasa a 1 |
-| `TestCart` | `test_producto_agregado_aparece_correctamente_en_el_carrito` | El producto agregado aparece listado en la página del carrito |
+| 🔐 Inicio de sesión | Que los usuarios válidos entren y los inválidos vean el mensaje de error correcto | 6 |
+| 🛍️ Catálogo | Que se vean los productos, sus precios, el menú y el filtro | 4 |
+| 🛒 Carrito | Que al agregar un producto aparezca en el carrito con el precio correcto | 4 |
+| | **Total** | **14** |
 
-Todos los tests son independientes entre sí: cada uno realiza su propio login mediante el helper `iniciar_sesion_y_obtener_inventario`, por lo que la falla de un test no afecta a los demás.
+> 🚧 **En desarrollo:** flujo completo de compra (checkout), pruebas de API, capturas dentro del reporte y ejecución automática en la nube (GitHub Actions).
+
+---
+
+## Parte técnica
+
+### Tecnologías utilizadas
+
+| Herramienta | Para qué se usa |
+|---|---|
+| **Python 3.12** | Lenguaje principal |
+| **Pytest** | Framework de testing (fixtures, parametrización, hooks) |
+| **Selenium WebDriver 4** | Automatización del navegador Chrome |
+| **pytest-html** | Reporte HTML de la ejecución |
+| **webdriver-manager** | Descarga automática del ChromeDriver compatible |
+| **logging** (módulo estándar) | Registro de pasos de la ejecución |
+| **Git + GitHub** | Control de versiones (una rama por funcionalidad) |
+
+### Estructura del proyecto
+
+```
+proyecto-final-automation-testing-roberto-gonzalez/
+├── pages/                     # Page Objects: CÓMO se interactúa con cada página
+│   ├── base_page.py           #   Clase base: esperas explícitas y acciones comunes
+│   ├── login_page.py          #   Pantalla de login
+│   ├── inventory_page.py      #   Catálogo de productos
+│   └── cart_page.py           #   Carrito
+├── tests/                     # Casos de prueba: QUÉ se verifica
+│   ├── conftest.py            #   Driver de Chrome, capturas ante fallos, log de resultados
+│   └── ui/
+│       ├── conftest.py        #   Fixture de sesión iniciada
+│       ├── test_login.py      #   Login parametrizado desde CSV
+│       ├── test_catalogo.py   #   Catálogo
+│       └── test_carrito.py    #   Carrito parametrizado desde JSON
+├── data/                      # Datos de prueba externos
+│   ├── usuarios_login.csv     #   Usuarios y resultado esperado del login
+│   ├── productos.json         #   Productos a agregar y su precio esperado
+│   └── esperados.json         #   Usuario válido y textos esperados
+├── utils/                     # Herramientas de soporte
+│   ├── logger.py              #   Logger del framework
+│   └── data_reader.py         #   Lectura de CSV y JSON
+├── reports/                   # Salidas de la ejecución
+│   ├── reporte.html           #   Reporte HTML
+│   ├── screenshots/           #   Capturas automáticas de tests fallidos
+│   └── logs/execution.log     #   Log detallado de la última ejecución
+├── pytest.ini                 # Configuración de pytest y del logging
+└── requirements.txt
+```
+
+**Separación de responsabilidades:** los tests nunca usan Selenium directamente. Le piden acciones a las páginas (`login_page.login(usuario, clave)`), y las páginas son las únicas que conocen los localizadores. Si cambia un elemento del sitio, se corrige en un solo archivo de `pages/`.
+
+### Instalación de dependencias
+
+Requisitos: **Python 3.10+** y **Google Chrome** instalado.
+
+```bash
+git clone https://github.com/rober-7/proyecto-final-automation-testing-roberto-gonzalez.git
+cd proyecto-final-automation-testing-roberto-gonzalez
+
+python -m venv venv
+venv\Scripts\activate          # Windows
+source venv/bin/activate       # Linux / Mac
+
+pip install -r requirements.txt
+```
+
+No hace falta descargar ChromeDriver: `webdriver-manager` lo descarga automáticamente según la versión de Chrome instalada.
+
+### Cómo ejecutar las pruebas
+
+```bash
+# Toda la suite, con reporte HTML
+pytest --html=reports/reporte.html --self-contained-html
+
+# Sin abrir la ventana del navegador (más rápido, ideal para CI)
+pytest --headless --html=reports/reporte.html --self-contained-html
+
+# Ver los pasos del log en vivo en la consola
+pytest --headless --log-cli-level=INFO
+
+# Solo un grupo de pruebas
+pytest tests/ui/test_login.py
+pytest tests/ui/test_carrito.py
+pytest -k "bloqueado"            # por nombre de caso
+```
+
+### Datos de prueba y parametrización
+
+Los datos están separados del código, en `data/`. Cada fila o elemento se convierte en un caso de prueba independiente gracias a `@pytest.mark.parametrize`.
+
+**`data/usuarios_login.csv`**: cada fila es un caso de login.
+
+| caso | username | password | resultado_esperado | mensaje_error |
+|---|---|---|---|---|
+| usuario_estandar | standard_user | secret_sauce | exito | |
+| usuario_bloqueado | locked_out_user | secret_sauce | error | Epic sadface: Sorry, this user has been locked out. |
+| … | | | | |
+
+La columna `caso` es el nombre con el que aparece el test en el reporte, por ejemplo `test_login_fallido_muestra_mensaje_de_error[usuario_bloqueado]`. **Para agregar un caso nuevo alcanza con sumar una fila al CSV.**
+
+**`data/productos.json`**: lista de productos con su precio esperado. El test agrega cada uno al carrito y verifica que aparezca con ese precio.
+
+### Cómo interpretar los resultados
+
+#### Reporte HTML: `reports/reporte.html`
+
+Se abre con cualquier navegador. Contiene:
+- **Resumen**: cantidad de tests pasados (*Passed*), fallados (*Failed*) y con error (*Errors*), y la duración total.
+- **Tabla de resultados**: un renglón por test con su estado y duración. Los tests parametrizados muestran el caso entre corchetes.
+- **Detalle de cada test**: al expandir un renglón se ve el log de pasos (*Captured log*) y, si falló, el error exacto.
+
+#### Capturas de pantalla: `reports/screenshots/`
+
+Cuando un test de UI falla, se guarda automáticamente una captura con el nombre del test y la fecha/hora, por ejemplo `test_login_exitoso_redirige_al_inventario_20261118_221733.png`.
+
+#### Log de ejecución: `reports/logs/execution.log`
+
+Registro detallado de la última ejecución. Cada test aparece delimitado por `INICIO` y `RESULTADO`:
+
+```
+2026-11-18 22:16:32 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_login.py::... ==========
+2026-11-18 22:16:32 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-18 22:16:35 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-18 22:16:35 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-18 22:16:36 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_login.py::... -> PASSED (1.06s)
+```
+
+| Nivel | Significado |
+|---|---|
+| `INFO` | Paso de negocio (login, agregar al carrito, resultado del test) |
+| `DEBUG` | Acción técnica sobre un elemento (click, escribir, esperar) |
+| `WARNING` | Se guardó una captura de pantalla |
+| `ERROR` | Un test falló; incluye el detalle del error |
+
+Las contraseñas se enmascaran (`*****`) en el log.
+
+### Independencia de los tests
+
+Cada test abre su propio navegador y, si lo necesita, inicia su propia sesión con el fixture `inventory_page`. Por eso la falla de un test no afecta a los demás, y los tests pueden ejecutarse en cualquier orden o de forma individual.
