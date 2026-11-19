@@ -13,13 +13,16 @@ class CartPage(BasePage):
 
     def wait_until_loaded(self):
         self.wait_for_url("/cart.html")
+        self.log.info("Pagina del carrito cargada")
         return self
 
     def get_cart_items(self):
         return self.find_all(self.CART_ITEMS)
 
     def get_cart_item_names(self):
-        return [
+        nombres = [
             item.find_element(*self.CART_ITEM_NAME).text
             for item in self.get_cart_items()
         ]
+        self.log.info("Productos en el carrito: %s", nombres)
+        return nombres
