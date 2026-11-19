@@ -17,6 +17,9 @@ from datos.test_data import (
     VALID_USER,
 )
 from pages import CartPage, InventoryPage, LoginPage
+from utils.logger import get_logger
+
+log = get_logger("tests.ui")
 
 
 def iniciar_sesion_y_obtener_inventario(driver):
@@ -73,7 +76,7 @@ class TestCatalog:
 
         assert nombre != ""
         assert precio.startswith("$")
-        print(f"Primer producto encontrado -> Nombre: {nombre} | Precio: {precio}")
+        log.info("Primer producto encontrado -> Nombre: %s | Precio: %s", nombre, precio)
 
 
 class TestCart:
