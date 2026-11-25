@@ -46,16 +46,34 @@ class InventoryPage(BasePage):
 
     def add_first_product_to_cart(self):
         self.log.info("Agregando el primer producto al carrito")
+        cantidad_previa = self._current_cart_count()
         self.click(self.FIRST_ADD_TO_CART_BUTTON)
+        self._wait_for_cart_count(cantidad_previa + 1)
 
     def add_product_to_cart(self, nombre_producto):
         """Busca el producto por su nombre en el catalogo y clickea su boton 'Add to cart'."""
         self.log.info("Agregando al carrito: '%s'", nombre_producto)
         for producto in self.get_products():
             if producto.find_element(*self.PRODUCT_NAME).text == nombre_producto:
+                cantidad_previa = self._current_cart_count()
                 producto.find_element(*self.PRODUCT_BUTTON).click()
+                self._wait_for_cart_count(cantidad_previa + 1)
                 return
         raise ValueError(f"El producto '{nombre_producto}' no existe en el catalogo")
+
+    def _current_cart_count(self):
+        """Cantidad que muestra el contador del carrito (0 si el contador no esta visible)."""
+        badges = self.driver.find_elements(*self.CART_BADGE)
+        return int(badges[0].text) if badges else 0
+
+    def _wait_for_cart_count(self, cantidad):
+        """Espera a que el sitio termine de registrar el producto antes de seguir.
+
+        Sin esta espera, navegar enseguida al carrito puede perder el click o
+        mostrar el carrito vacio (condicion de carrera con la actualizacion de la pagina).
+        """
+        self.log.debug("Esperando que el contador del carrito llegue a %d", cantidad)
+        self.wait.until(lambda driver: self._current_cart_count() == cantidad)
 
     def get_cart_badge_count(self):
         cantidad = int(self.get_text(self.CART_BADGE))

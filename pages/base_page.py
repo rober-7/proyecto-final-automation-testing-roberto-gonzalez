@@ -9,6 +9,7 @@ elementos (click, escribir) y en nivel INFO las acciones de negocio que
 definen las paginas hijas (login, agregar al carrito, etc.).
 """
 
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -27,7 +28,8 @@ def describe(locator):
 class BasePage:
     def __init__(self, driver, timeout=DEFAULT_TIMEOUT):
         self.driver = driver
-        self.wait = WebDriverWait(driver, timeout)
+        # Se ignoran los elementos "stale" (re-dibujados por la pagina) mientras se espera
+        self.wait = WebDriverWait(driver, timeout, ignored_exceptions=(StaleElementReferenceException,))
         self.log = get_logger(f"pages.{type(self).__name__}")
 
     def open(self, path=""):
@@ -67,3 +69,4 @@ class BasePage:
     def wait_for_url(self, fragment):
         self.log.debug("Esperando que la URL contenga: %s", fragment)
         self.wait.until(EC.url_contains(fragment))
+
