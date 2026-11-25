@@ -4,6 +4,8 @@ La usan el fixture `driver` de los tests y el script que genera las
 imagenes del README, para que ambos abran Chrome exactamente igual.
 """
 
+import os
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -27,6 +29,12 @@ def create_chrome_driver(headless=False, window_size=(1920, 1080)):
     if headless:
         options.add_argument("--headless=new")
         options.add_argument(f"--window-size={window_size[0]},{window_size[1]}")
+
+    # En servidores de integracion continua (GitHub Actions define CI=true) Chrome
+    # necesita estas opciones para funcionar dentro del contenedor
+    if os.environ.get("CI"):
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
 
     service = Service(ChromeDriverManager().install())
     return webdriver.Chrome(service=service, options=options)
