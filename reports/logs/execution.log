@@ -1,0 +1,526 @@
+2026-11-25 01:58:47 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_flujos_encadenados.py::TestFlujosEncadenados::test_obtener_usuario_y_luego_sus_posts ==========
+2026-11-25 01:58:47 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/users/1
+2026-11-25 01:58:47 [INFO   ] framework.api.client: <-- 200 OK (432 ms)
+2026-11-25 01:58:47 [DEBUG  ] framework.api.client: Cuerpo recibido: {"id": 1, "name": "Leanne Graham", "username": "Bret", "email": "Sincere@april.biz", "address": {"street": "Kulas Light", "suite": "Apt. 556", "city": "Gwenborough", "zipcode": "92998-3874", "geo": {"lat": "-37.3159", "lng": "81.1496"}}, "phone": "1-770-736-8031 x56442", "website": "hildegard.org", "company": {"name": "Romaguera-Crona", "catchPhrase": "Multi-layered client-server neural-net", "bs": "harness real-time e-markets"}}
+2026-11-25 01:58:47 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/posts
+2026-11-25 01:58:47 [INFO   ] framework.api.client: <-- 200 OK (46 ms)
+2026-11-25 01:58:47 [DEBUG  ] framework.api.client: Cuerpo recibido: [{"userId": 1, "id": 1, "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit", "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"}, {"userId": 1, "id": 2, "title": "qui est esse", "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqu
+2026-11-25 01:58:47 [INFO   ] framework.conftest: RESULTADO: tests/api/test_flujos_encadenados.py::TestFlujosEncadenados::test_obtener_usuario_y_luego_sus_posts -> PASSED (0.48s)
+2026-11-25 01:58:47 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_flujos_encadenados.py::TestFlujosEncadenados::test_obtener_primer_post_del_usuario_y_luego_sus_comentarios ==========
+2026-11-25 01:58:47 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/posts
+2026-11-25 01:58:48 [INFO   ] framework.api.client: <-- 200 OK (437 ms)
+2026-11-25 01:58:48 [DEBUG  ] framework.api.client: Cuerpo recibido: [{"userId": 1, "id": 1, "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit", "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"}, {"userId": 1, "id": 2, "title": "qui est esse", "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqu
+2026-11-25 01:58:48 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/posts/1/comments
+2026-11-25 01:58:48 [INFO   ] framework.api.client: <-- 200 OK (45 ms)
+2026-11-25 01:58:48 [DEBUG  ] framework.api.client: Cuerpo recibido: [{"postId": 1, "id": 1, "name": "id labore ex et quam laborum", "email": "Eliseo@gardner.biz", "body": "laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam autem quasi\nreiciendis et nam sapiente accusantium"}, {"postId": 1, "id": 2, "name": "quo vero reiciendis velit similique earum", "email": "Jayne_Kuhic@sydney.com", "body": "est natus enim nihil est dolore omnis voluptatem numquam\net omnis occaecati quod ullam at\nvoluptatem error expedita par
+2026-11-25 01:58:48 [INFO   ] framework.conftest: RESULTADO: tests/api/test_flujos_encadenados.py::TestFlujosEncadenados::test_obtener_primer_post_del_usuario_y_luego_sus_comentarios -> PASSED (0.48s)
+2026-11-25 01:58:48 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_posts.py::TestPosts::test_listar_posts_devuelve_todos_con_estructura_valida ==========
+2026-11-25 01:58:48 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/posts
+2026-11-25 01:58:48 [INFO   ] framework.api.client: <-- 200 OK (414 ms)
+2026-11-25 01:58:48 [DEBUG  ] framework.api.client: Cuerpo recibido: [{"userId": 1, "id": 1, "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit", "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"}, {"userId": 1, "id": 2, "title": "qui est esse", "body": "est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqu
+2026-11-25 01:58:48 [INFO   ] framework.conftest: RESULTADO: tests/api/test_posts.py::TestPosts::test_listar_posts_devuelve_todos_con_estructura_valida -> PASSED (0.42s)
+2026-11-25 01:58:48 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_posts.py::TestPosts::test_obtener_post_por_id[1] ==========
+2026-11-25 01:58:48 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/posts/1
+2026-11-25 01:58:48 [INFO   ] framework.api.client: <-- 200 OK (407 ms)
+2026-11-25 01:58:48 [DEBUG  ] framework.api.client: Cuerpo recibido: {"userId": 1, "id": 1, "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit", "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"}
+2026-11-25 01:58:48 [INFO   ] framework.conftest: RESULTADO: tests/api/test_posts.py::TestPosts::test_obtener_post_por_id[1] -> PASSED (0.41s)
+2026-11-25 01:58:48 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_posts.py::TestPosts::test_obtener_post_por_id[50] ==========
+2026-11-25 01:58:48 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/posts/50
+2026-11-25 01:58:49 [INFO   ] framework.api.client: <-- 200 OK (440 ms)
+2026-11-25 01:58:49 [DEBUG  ] framework.api.client: Cuerpo recibido: {"userId": 5, "id": 50, "title": "repellendus qui recusandae incidunt voluptates tenetur qui omnis exercitationem", "body": "error suscipit maxime adipisci consequuntur recusandae\nvoluptas eligendi et est et voluptates\nquia distinctio ab amet quaerat molestiae et vitae\nadipisci impedit sequi nesciunt quis consectetur"}
+2026-11-25 01:58:49 [INFO   ] framework.conftest: RESULTADO: tests/api/test_posts.py::TestPosts::test_obtener_post_por_id[50] -> PASSED (0.44s)
+2026-11-25 01:58:49 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_posts.py::TestPosts::test_obtener_post_por_id[100] ==========
+2026-11-25 01:58:49 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/posts/100
+2026-11-25 01:58:49 [INFO   ] framework.api.client: <-- 200 OK (435 ms)
+2026-11-25 01:58:49 [DEBUG  ] framework.api.client: Cuerpo recibido: {"userId": 10, "id": 100, "title": "at nam consequatur ea labore ea harum", "body": "cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error aut"}
+2026-11-25 01:58:49 [INFO   ] framework.conftest: RESULTADO: tests/api/test_posts.py::TestPosts::test_obtener_post_por_id[100] -> PASSED (0.44s)
+2026-11-25 01:58:49 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_posts.py::TestPosts::test_obtener_post_inexistente_devuelve_404 ==========
+2026-11-25 01:58:49 [INFO   ] framework.api.client: --> GET https://jsonplaceholder.typicode.com/posts/9999
+2026-11-25 01:58:50 [INFO   ] framework.api.client: <-- 404 Not Found (452 ms)
+2026-11-25 01:58:50 [DEBUG  ] framework.api.client: Cuerpo recibido: {}
+2026-11-25 01:58:50 [INFO   ] framework.conftest: RESULTADO: tests/api/test_posts.py::TestPosts::test_obtener_post_inexistente_devuelve_404 -> PASSED (0.45s)
+2026-11-25 01:58:50 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_posts.py::TestPosts::test_crear_post_devuelve_201_con_los_datos_enviados ==========
+2026-11-25 01:58:50 [INFO   ] framework.api.client: --> POST https://jsonplaceholder.typicode.com/posts
+2026-11-25 01:58:50 [DEBUG  ] framework.api.client: Cuerpo enviado: {"title": "Automatizacion de pruebas con Python", "body": "Post creado desde el framework de automatizacion del proyecto final.", "userId": 1}
+2026-11-25 01:58:50 [INFO   ] framework.api.client: <-- 201 Created (541 ms)
+2026-11-25 01:58:50 [DEBUG  ] framework.api.client: Cuerpo recibido: {"title": "Automatizacion de pruebas con Python", "body": "Post creado desde el framework de automatizacion del proyecto final.", "userId": 1, "id": 101}
+2026-11-25 01:58:50 [INFO   ] framework.conftest: RESULTADO: tests/api/test_posts.py::TestPosts::test_crear_post_devuelve_201_con_los_datos_enviados -> PASSED (0.54s)
+2026-11-25 01:58:50 [INFO   ] framework.conftest: ========== INICIO: tests/api/test_posts.py::TestPosts::test_eliminar_post_devuelve_200_y_cuerpo_vacio ==========
+2026-11-25 01:58:50 [INFO   ] framework.api.client: --> DELETE https://jsonplaceholder.typicode.com/posts/1
+2026-11-25 01:58:51 [INFO   ] framework.api.client: <-- 200 OK (538 ms)
+2026-11-25 01:58:51 [DEBUG  ] framework.api.client: Cuerpo recibido: {}
+2026-11-25 01:58:51 [INFO   ] framework.conftest: RESULTADO: tests/api/test_posts.py::TestPosts::test_eliminar_post_devuelve_200_y_cuerpo_vacio -> PASSED (0.54s)
+2026-11-25 01:58:51 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_carrito.py::TestCarrito::test_agregar_producto_incrementa_contador_del_carrito ==========
+2026-11-25 01:58:51 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:58:53 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:58:53 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:58:53 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:58:53 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:58:53 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:58:53 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:58:53 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:58:54 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:58:54 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:58:54 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:58:54 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:58:54 [INFO   ] framework.pages.InventoryPage: Agregando el primer producto al carrito
+2026-11-25 01:58:54 [DEBUG  ] framework.pages.InventoryPage: Click en: css selector=.inventory_item button
+2026-11-25 01:58:54 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 01:58:54 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: class name=shopping_cart_badge
+2026-11-25 01:58:54 [DEBUG  ] framework.pages.InventoryPage: Texto leido de class name=shopping_cart_badge: '1'
+2026-11-25 01:58:54 [INFO   ] framework.pages.InventoryPage: Contador del carrito: 1
+2026-11-25 01:58:54 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_carrito.py::TestCarrito::test_agregar_producto_incrementa_contador_del_carrito -> PASSED (0.17s)
+2026-11-25 01:58:54 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:58:56 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_carrito.py::TestCarrito::test_producto_agregado_aparece_en_el_carrito_con_su_precio[Sauce Labs Backpack] ==========
+2026-11-25 01:58:56 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:58:58 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:58:58 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:58:58 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:58:58 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:58:58 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:58:59 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:58:59 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Backpack'
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 01:58:59 [INFO   ] framework.pages.InventoryPage: Navegando al carrito
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.InventoryPage: Click en: class name=shopping_cart_link
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.CartPage: Esperando que la URL contenga: /cart.html
+2026-11-25 01:58:59 [DEBUG  ] framework.pages.CartPage: Esperando elemento visible: class name=cart_list
+2026-11-25 01:59:00 [INFO   ] framework.pages.CartPage: Pagina del carrito cargada
+2026-11-25 01:59:00 [DEBUG  ] framework.pages.CartPage: Encontrados 1 elementos con class name=cart_item
+2026-11-25 01:59:00 [INFO   ] framework.pages.CartPage: Productos y precios en el carrito: {'Sauce Labs Backpack': '$29.99'}
+2026-11-25 01:59:00 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_carrito.py::TestCarrito::test_producto_agregado_aparece_en_el_carrito_con_su_precio[Sauce Labs Backpack] -> PASSED (0.81s)
+2026-11-25 01:59:00 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:02 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_carrito.py::TestCarrito::test_producto_agregado_aparece_en_el_carrito_con_su_precio[Sauce Labs Bike Light] ==========
+2026-11-25 01:59:02 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:04 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:04 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:04 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:04 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Bike Light'
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 01:59:04 [INFO   ] framework.pages.InventoryPage: Navegando al carrito
+2026-11-25 01:59:04 [DEBUG  ] framework.pages.InventoryPage: Click en: class name=shopping_cart_link
+2026-11-25 01:59:05 [DEBUG  ] framework.pages.CartPage: Esperando que la URL contenga: /cart.html
+2026-11-25 01:59:05 [DEBUG  ] framework.pages.CartPage: Esperando elemento visible: class name=cart_list
+2026-11-25 01:59:05 [INFO   ] framework.pages.CartPage: Pagina del carrito cargada
+2026-11-25 01:59:05 [DEBUG  ] framework.pages.CartPage: Encontrados 1 elementos con class name=cart_item
+2026-11-25 01:59:05 [INFO   ] framework.pages.CartPage: Productos y precios en el carrito: {'Sauce Labs Bike Light': '$9.99'}
+2026-11-25 01:59:05 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_carrito.py::TestCarrito::test_producto_agregado_aparece_en_el_carrito_con_su_precio[Sauce Labs Bike Light] -> PASSED (0.83s)
+2026-11-25 01:59:05 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:07 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_carrito.py::TestCarrito::test_producto_agregado_aparece_en_el_carrito_con_su_precio[Sauce Labs Fleece Jacket] ==========
+2026-11-25 01:59:07 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:09 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:10 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:10 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:10 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Fleece Jacket'
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 01:59:10 [INFO   ] framework.pages.InventoryPage: Navegando al carrito
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.InventoryPage: Click en: class name=shopping_cart_link
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.CartPage: Esperando que la URL contenga: /cart.html
+2026-11-25 01:59:10 [DEBUG  ] framework.pages.CartPage: Esperando elemento visible: class name=cart_list
+2026-11-25 01:59:11 [INFO   ] framework.pages.CartPage: Pagina del carrito cargada
+2026-11-25 01:59:11 [DEBUG  ] framework.pages.CartPage: Encontrados 1 elementos con class name=cart_item
+2026-11-25 01:59:11 [INFO   ] framework.pages.CartPage: Productos y precios en el carrito: {'Sauce Labs Fleece Jacket': '$49.99'}
+2026-11-25 01:59:11 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_carrito.py::TestCarrito::test_producto_agregado_aparece_en_el_carrito_con_su_precio[Sauce Labs Fleece Jacket] -> PASSED (0.86s)
+2026-11-25 01:59:11 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:13 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_catalogo.py::TestCatalogo::test_titulo_de_pagina_de_inventario_es_correcto ==========
+2026-11-25 01:59:13 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:15 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:15 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:15 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:15 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:15 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:15 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:15 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:16 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:16 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:16 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:16 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:16 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: class name=title
+2026-11-25 01:59:16 [DEBUG  ] framework.pages.InventoryPage: Texto leido de class name=title: 'Products'
+2026-11-25 01:59:16 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_catalogo.py::TestCatalogo::test_titulo_de_pagina_de_inventario_es_correcto -> PASSED (0.03s)
+2026-11-25 01:59:16 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:18 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_catalogo.py::TestCatalogo::test_existen_productos_visibles_en_el_catalogo ==========
+2026-11-25 01:59:18 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:20 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:21 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:21 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:21 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:21 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:21 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:21 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:21 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:22 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:22 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:22 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:22 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:22 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_catalogo.py::TestCatalogo::test_existen_productos_visibles_en_el_catalogo -> PASSED (0.01s)
+2026-11-25 01:59:22 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:24 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_catalogo.py::TestCatalogo::test_elementos_importantes_de_la_interfaz_estan_presentes ==========
+2026-11-25 01:59:24 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:27 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:30 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:30 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=react-burger-menu-btn
+2026-11-25 01:59:30 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: class name=product_sort_container
+2026-11-25 01:59:30 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_catalogo.py::TestCatalogo::test_elementos_importantes_de_la_interfaz_estan_presentes -> PASSED (0.05s)
+2026-11-25 01:59:30 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:32 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_catalogo.py::TestCatalogo::test_lista_nombre_y_precio_del_primer_producto ==========
+2026-11-25 01:59:32 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:34 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:34 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:34 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:34 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:34 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:35 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:35 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:35 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:35 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:35 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:35 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:35 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:35 [INFO   ] framework.pages.InventoryPage: Primer producto del catalogo: 'Sauce Labs Backpack' ($29.99)
+2026-11-25 01:59:35 [INFO   ] framework.tests.ui.catalogo: Primer producto encontrado -> Nombre: Sauce Labs Backpack | Precio: $29.99
+2026-11-25 01:59:35 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_catalogo.py::TestCatalogo::test_lista_nombre_y_precio_del_primer_producto -> PASSED (0.15s)
+2026-11-25 01:59:35 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:37 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_checkout.py::TestCheckout::test_compra_completa_de_punta_a_punta ==========
+2026-11-25 01:59:37 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:40 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:40 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:40 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:40 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Backpack'
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:40 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 01:59:41 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Bike Light'
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 2
+2026-11-25 01:59:41 [INFO   ] framework.pages.InventoryPage: Navegando al carrito
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.InventoryPage: Click en: class name=shopping_cart_link
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CartPage: Esperando que la URL contenga: /cart.html
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CartPage: Esperando elemento visible: class name=cart_list
+2026-11-25 01:59:41 [INFO   ] framework.pages.CartPage: Pagina del carrito cargada
+2026-11-25 01:59:41 [INFO   ] framework.pages.CartPage: Iniciando el checkout
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CartPage: Click en: id=checkout
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando que la URL contenga: /checkout-step-one.html
+2026-11-25 01:59:41 [INFO   ] framework.pages.CheckoutInfoPage: Formulario de datos del comprador cargado
+2026-11-25 01:59:41 [INFO   ] framework.pages.CheckoutInfoPage: Completando datos del comprador: 'Roberto' 'Gonzalez' (CP: '1425')
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo 'Roberto' en: id=first-name
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=first-name
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo 'Gonzalez' en: id=last-name
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=last-name
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo '1425' en: id=postal-code
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=postal-code
+2026-11-25 01:59:41 [INFO   ] framework.pages.CheckoutInfoPage: Enviando el formulario del comprador
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutInfoPage: Click en: id=continue
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutOverviewPage: Esperando que la URL contenga: /checkout-step-two.html
+2026-11-25 01:59:41 [INFO   ] framework.pages.CheckoutOverviewPage: Resumen de la compra cargado
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutOverviewPage: Encontrados 2 elementos con class name=inventory_item_price
+2026-11-25 01:59:41 [INFO   ] framework.pages.CheckoutOverviewPage: Confirmando la compra
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutOverviewPage: Click en: id=finish
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutCompletePage: Esperando que la URL contenga: /checkout-complete.html
+2026-11-25 01:59:41 [INFO   ] framework.pages.CheckoutCompletePage: Pagina de compra completada cargada
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutCompletePage: Esperando elemento visible: class name=complete-header
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutCompletePage: Texto leido de class name=complete-header: 'Thank you for your order!'
+2026-11-25 01:59:41 [INFO   ] framework.pages.CheckoutCompletePage: Mensaje de confirmacion: 'Thank you for your order!'
+2026-11-25 01:59:41 [DEBUG  ] framework.pages.CheckoutCompletePage: Esperando elemento visible: id=back-to-products
+2026-11-25 01:59:41 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_checkout.py::TestCheckout::test_compra_completa_de_punta_a_punta -> PASSED (1.17s)
+2026-11-25 01:59:41 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:44 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_checkout.py::TestCheckout::test_resumen_calcula_subtotal_impuestos_y_total ==========
+2026-11-25 01:59:44 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:46 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:46 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:46 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:46 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:46 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:47 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:47 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Backpack'
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 01:59:47 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Bike Light'
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 2
+2026-11-25 01:59:47 [INFO   ] framework.pages.InventoryPage: Navegando al carrito
+2026-11-25 01:59:47 [DEBUG  ] framework.pages.InventoryPage: Click en: class name=shopping_cart_link
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CartPage: Esperando que la URL contenga: /cart.html
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CartPage: Esperando elemento visible: class name=cart_list
+2026-11-25 01:59:48 [INFO   ] framework.pages.CartPage: Pagina del carrito cargada
+2026-11-25 01:59:48 [INFO   ] framework.pages.CartPage: Iniciando el checkout
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CartPage: Click en: id=checkout
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando que la URL contenga: /checkout-step-one.html
+2026-11-25 01:59:48 [INFO   ] framework.pages.CheckoutInfoPage: Formulario de datos del comprador cargado
+2026-11-25 01:59:48 [INFO   ] framework.pages.CheckoutInfoPage: Completando datos del comprador: 'Roberto' 'Gonzalez' (CP: '1425')
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo 'Roberto' en: id=first-name
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=first-name
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo 'Gonzalez' en: id=last-name
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=last-name
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo '1425' en: id=postal-code
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=postal-code
+2026-11-25 01:59:48 [INFO   ] framework.pages.CheckoutInfoPage: Enviando el formulario del comprador
+2026-11-25 01:59:48 [DEBUG  ] framework.pages.CheckoutInfoPage: Click en: id=continue
+2026-11-25 01:59:49 [DEBUG  ] framework.pages.CheckoutOverviewPage: Esperando que la URL contenga: /checkout-step-two.html
+2026-11-25 01:59:49 [INFO   ] framework.pages.CheckoutOverviewPage: Resumen de la compra cargado
+2026-11-25 01:59:49 [DEBUG  ] framework.pages.CheckoutOverviewPage: Esperando elemento visible: class name=summary_subtotal_label
+2026-11-25 01:59:49 [DEBUG  ] framework.pages.CheckoutOverviewPage: Texto leido de class name=summary_subtotal_label: 'Item total: $39.98'
+2026-11-25 01:59:49 [DEBUG  ] framework.pages.CheckoutOverviewPage: Esperando elemento visible: class name=summary_tax_label
+2026-11-25 01:59:49 [DEBUG  ] framework.pages.CheckoutOverviewPage: Texto leido de class name=summary_tax_label: 'Tax: $3.20'
+2026-11-25 01:59:49 [DEBUG  ] framework.pages.CheckoutOverviewPage: Encontrados 2 elementos con class name=inventory_item_price
+2026-11-25 01:59:49 [DEBUG  ] framework.pages.CheckoutOverviewPage: Esperando elemento visible: class name=summary_total_label
+2026-11-25 01:59:49 [DEBUG  ] framework.pages.CheckoutOverviewPage: Texto leido de class name=summary_total_label: 'Total: $43.18'
+2026-11-25 01:59:49 [INFO   ] framework.pages.CheckoutOverviewPage: Total de la compra: $43.18
+2026-11-25 01:59:49 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_checkout.py::TestCheckout::test_resumen_calcula_subtotal_impuestos_y_total -> PASSED (1.60s)
+2026-11-25 01:59:49 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:51 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_checkout.py::TestCheckout::test_formulario_incompleto_muestra_mensaje_de_error[sin_nombre] ==========
+2026-11-25 01:59:51 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:53 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:53 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 01:59:53 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 01:59:53 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Backpack'
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 01:59:53 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 01:59:54 [INFO   ] framework.pages.InventoryPage: Navegando al carrito
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.InventoryPage: Click en: class name=shopping_cart_link
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CartPage: Esperando que la URL contenga: /cart.html
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CartPage: Esperando elemento visible: class name=cart_list
+2026-11-25 01:59:54 [INFO   ] framework.pages.CartPage: Pagina del carrito cargada
+2026-11-25 01:59:54 [INFO   ] framework.pages.CartPage: Iniciando el checkout
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CartPage: Click en: id=checkout
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando que la URL contenga: /checkout-step-one.html
+2026-11-25 01:59:54 [INFO   ] framework.pages.CheckoutInfoPage: Formulario de datos del comprador cargado
+2026-11-25 01:59:54 [INFO   ] framework.pages.CheckoutInfoPage: Completando datos del comprador: '' 'Gonzalez' (CP: '1425')
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo '' en: id=first-name
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=first-name
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo 'Gonzalez' en: id=last-name
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=last-name
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo '1425' en: id=postal-code
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=postal-code
+2026-11-25 01:59:54 [INFO   ] framework.pages.CheckoutInfoPage: Enviando el formulario del comprador
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Click en: id=continue
+2026-11-25 01:59:54 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: css selector=[data-test='error']
+2026-11-25 01:59:55 [DEBUG  ] framework.pages.CheckoutInfoPage: Texto leido de css selector=[data-test='error']: 'Error: First Name is required'
+2026-11-25 01:59:55 [INFO   ] framework.pages.CheckoutInfoPage: Mensaje de error mostrado: 'Error: First Name is required'
+2026-11-25 01:59:55 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_checkout.py::TestCheckout::test_formulario_incompleto_muestra_mensaje_de_error[sin_nombre] -> PASSED (1.14s)
+2026-11-25 01:59:55 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 01:59:57 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_checkout.py::TestCheckout::test_formulario_incompleto_muestra_mensaje_de_error[sin_apellido] ==========
+2026-11-25 01:59:57 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 01:59:59 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 01:59:59 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:59 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 01:59:59 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 01:59:59 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 01:59:59 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 01:59:59 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 01:59:59 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 01:59:59 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 01:59:59 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 02:00:00 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 02:00:00 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Backpack'
+2026-11-25 02:00:00 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 02:00:00 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 02:00:00 [INFO   ] framework.pages.InventoryPage: Navegando al carrito
+2026-11-25 02:00:00 [DEBUG  ] framework.pages.InventoryPage: Click en: class name=shopping_cart_link
+2026-11-25 02:00:00 [DEBUG  ] framework.pages.CartPage: Esperando que la URL contenga: /cart.html
+2026-11-25 02:00:00 [DEBUG  ] framework.pages.CartPage: Esperando elemento visible: class name=cart_list
+2026-11-25 02:00:00 [INFO   ] framework.pages.CartPage: Pagina del carrito cargada
+2026-11-25 02:00:00 [INFO   ] framework.pages.CartPage: Iniciando el checkout
+2026-11-25 02:00:00 [DEBUG  ] framework.pages.CartPage: Click en: id=checkout
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando que la URL contenga: /checkout-step-one.html
+2026-11-25 02:00:01 [INFO   ] framework.pages.CheckoutInfoPage: Formulario de datos del comprador cargado
+2026-11-25 02:00:01 [INFO   ] framework.pages.CheckoutInfoPage: Completando datos del comprador: 'Roberto' '' (CP: '1425')
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo 'Roberto' en: id=first-name
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=first-name
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo '' en: id=last-name
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=last-name
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo '1425' en: id=postal-code
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=postal-code
+2026-11-25 02:00:01 [INFO   ] framework.pages.CheckoutInfoPage: Enviando el formulario del comprador
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Click en: id=continue
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: css selector=[data-test='error']
+2026-11-25 02:00:01 [DEBUG  ] framework.pages.CheckoutInfoPage: Texto leido de css selector=[data-test='error']: 'Error: Last Name is required'
+2026-11-25 02:00:01 [INFO   ] framework.pages.CheckoutInfoPage: Mensaje de error mostrado: 'Error: Last Name is required'
+2026-11-25 02:00:01 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_checkout.py::TestCheckout::test_formulario_incompleto_muestra_mensaje_de_error[sin_apellido] -> PASSED (1.47s)
+2026-11-25 02:00:01 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 02:00:03 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_checkout.py::TestCheckout::test_formulario_incompleto_muestra_mensaje_de_error[sin_codigo_postal] ==========
+2026-11-25 02:00:03 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 02:00:05 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 02:00:05 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:05 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 02:00:05 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 02:00:05 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:05 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 02:00:05 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 02:00:05 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 02:00:06 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 02:00:06 [INFO   ] framework.pages.InventoryPage: Agregando al carrito: 'Sauce Labs Backpack'
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.InventoryPage: Encontrados 6 elementos con class name=inventory_item
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.InventoryPage: Esperando que el contador del carrito llegue a 1
+2026-11-25 02:00:06 [INFO   ] framework.pages.InventoryPage: Navegando al carrito
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.InventoryPage: Click en: class name=shopping_cart_link
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.CartPage: Esperando que la URL contenga: /cart.html
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.CartPage: Esperando elemento visible: class name=cart_list
+2026-11-25 02:00:06 [INFO   ] framework.pages.CartPage: Pagina del carrito cargada
+2026-11-25 02:00:06 [INFO   ] framework.pages.CartPage: Iniciando el checkout
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.CartPage: Click en: id=checkout
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando que la URL contenga: /checkout-step-one.html
+2026-11-25 02:00:06 [INFO   ] framework.pages.CheckoutInfoPage: Formulario de datos del comprador cargado
+2026-11-25 02:00:06 [INFO   ] framework.pages.CheckoutInfoPage: Completando datos del comprador: 'Roberto' 'Gonzalez' (CP: '')
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo 'Roberto' en: id=first-name
+2026-11-25 02:00:06 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=first-name
+2026-11-25 02:00:07 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo 'Gonzalez' en: id=last-name
+2026-11-25 02:00:07 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=last-name
+2026-11-25 02:00:07 [DEBUG  ] framework.pages.CheckoutInfoPage: Escribiendo '' en: id=postal-code
+2026-11-25 02:00:07 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: id=postal-code
+2026-11-25 02:00:07 [INFO   ] framework.pages.CheckoutInfoPage: Enviando el formulario del comprador
+2026-11-25 02:00:07 [DEBUG  ] framework.pages.CheckoutInfoPage: Click en: id=continue
+2026-11-25 02:00:07 [DEBUG  ] framework.pages.CheckoutInfoPage: Esperando elemento visible: css selector=[data-test='error']
+2026-11-25 02:00:07 [DEBUG  ] framework.pages.CheckoutInfoPage: Texto leido de css selector=[data-test='error']: 'Error: Postal Code is required'
+2026-11-25 02:00:07 [INFO   ] framework.pages.CheckoutInfoPage: Mensaje de error mostrado: 'Error: Postal Code is required'
+2026-11-25 02:00:07 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_checkout.py::TestCheckout::test_formulario_incompleto_muestra_mensaje_de_error[sin_codigo_postal] -> PASSED (1.17s)
+2026-11-25 02:00:07 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 02:00:09 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_login.py::TestLogin::test_login_exitoso_redirige_al_inventario[usuario_estandar] ==========
+2026-11-25 02:00:09 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 02:00:11 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 02:00:11 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:11 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 02:00:11 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 02:00:11 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:11 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 02:00:11 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 02:00:12 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 02:00:12 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 02:00:12 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 02:00:12 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 02:00:12 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: class name=title
+2026-11-25 02:00:12 [DEBUG  ] framework.pages.InventoryPage: Texto leido de class name=title: 'Products'
+2026-11-25 02:00:12 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_login.py::TestLogin::test_login_exitoso_redirige_al_inventario[usuario_estandar] -> PASSED (0.80s)
+2026-11-25 02:00:12 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 02:00:14 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_login.py::TestLogin::test_login_exitoso_redirige_al_inventario[usuario_con_problemas] ==========
+2026-11-25 02:00:14 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 02:00:16 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 02:00:16 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:16 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'problem_user'
+2026-11-25 02:00:16 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'problem_user' en: id=user-name
+2026-11-25 02:00:16 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:16 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 02:00:16 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 02:00:17 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 02:00:17 [DEBUG  ] framework.pages.InventoryPage: Esperando que la URL contenga: /inventory.html
+2026-11-25 02:00:17 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: id=inventory_container
+2026-11-25 02:00:17 [INFO   ] framework.pages.InventoryPage: Pagina de inventario cargada
+2026-11-25 02:00:17 [DEBUG  ] framework.pages.InventoryPage: Esperando elemento visible: class name=title
+2026-11-25 02:00:17 [DEBUG  ] framework.pages.InventoryPage: Texto leido de class name=title: 'Products'
+2026-11-25 02:00:17 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_login.py::TestLogin::test_login_exitoso_redirige_al_inventario[usuario_con_problemas] -> PASSED (0.82s)
+2026-11-25 02:00:17 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 02:00:19 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_login.py::TestLogin::test_login_fallido_muestra_mensaje_de_error[credenciales_invalidas] ==========
+2026-11-25 02:00:19 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 02:00:21 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 02:00:21 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:21 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'usuario_inexistente'
+2026-11-25 02:00:21 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'usuario_inexistente' en: id=user-name
+2026-11-25 02:00:21 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:21 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 02:00:21 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 02:00:21 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 02:00:22 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: css selector=[data-test='error']
+2026-11-25 02:00:22 [DEBUG  ] framework.pages.LoginPage: Texto leido de css selector=[data-test='error']: 'Epic sadface: Username and password do not match any user in this service'
+2026-11-25 02:00:22 [INFO   ] framework.pages.LoginPage: Mensaje de error mostrado: 'Epic sadface: Username and password do not match any user in this service'
+2026-11-25 02:00:22 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_login.py::TestLogin::test_login_fallido_muestra_mensaje_de_error[credenciales_invalidas] -> PASSED (0.63s)
+2026-11-25 02:00:22 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 02:00:24 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_login.py::TestLogin::test_login_fallido_muestra_mensaje_de_error[usuario_bloqueado] ==========
+2026-11-25 02:00:24 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 02:00:26 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 02:00:26 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:26 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'locked_out_user'
+2026-11-25 02:00:26 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'locked_out_user' en: id=user-name
+2026-11-25 02:00:26 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:26 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 02:00:26 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 02:00:26 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 02:00:26 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: css selector=[data-test='error']
+2026-11-25 02:00:26 [DEBUG  ] framework.pages.LoginPage: Texto leido de css selector=[data-test='error']: 'Epic sadface: Sorry, this user has been locked out.'
+2026-11-25 02:00:26 [INFO   ] framework.pages.LoginPage: Mensaje de error mostrado: 'Epic sadface: Sorry, this user has been locked out.'
+2026-11-25 02:00:26 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_login.py::TestLogin::test_login_fallido_muestra_mensaje_de_error[usuario_bloqueado] -> PASSED (0.86s)
+2026-11-25 02:00:26 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 02:00:29 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_login.py::TestLogin::test_login_fallido_muestra_mensaje_de_error[usuario_vacio] ==========
+2026-11-25 02:00:29 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 02:00:31 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 02:00:31 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:31 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario ''
+2026-11-25 02:00:31 [DEBUG  ] framework.pages.LoginPage: Escribiendo '' en: id=user-name
+2026-11-25 02:00:31 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:31 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 02:00:31 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 02:00:31 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 02:00:31 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: css selector=[data-test='error']
+2026-11-25 02:00:31 [DEBUG  ] framework.pages.LoginPage: Texto leido de css selector=[data-test='error']: 'Epic sadface: Username is required'
+2026-11-25 02:00:31 [INFO   ] framework.pages.LoginPage: Mensaje de error mostrado: 'Epic sadface: Username is required'
+2026-11-25 02:00:31 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_login.py::TestLogin::test_login_fallido_muestra_mensaje_de_error[usuario_vacio] -> PASSED (0.61s)
+2026-11-25 02:00:31 [INFO   ] framework.conftest: Cerrando Chrome
+2026-11-25 02:00:33 [INFO   ] framework.conftest: ========== INICIO: tests/ui/test_login.py::TestLogin::test_login_fallido_muestra_mensaje_de_error[password_vacia] ==========
+2026-11-25 02:00:33 [INFO   ] framework.conftest: Iniciando Chrome (headless=True)
+2026-11-25 02:00:35 [INFO   ] framework.pages.LoginPage: Abriendo URL: https://www.saucedemo.com/
+2026-11-25 02:00:35 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:36 [INFO   ] framework.pages.LoginPage: Iniciando sesion con usuario 'standard_user'
+2026-11-25 02:00:36 [DEBUG  ] framework.pages.LoginPage: Escribiendo 'standard_user' en: id=user-name
+2026-11-25 02:00:36 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=user-name
+2026-11-25 02:00:36 [DEBUG  ] framework.pages.LoginPage: Escribiendo '*****' en: id=password
+2026-11-25 02:00:36 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: id=password
+2026-11-25 02:00:36 [DEBUG  ] framework.pages.LoginPage: Click en: id=login-button
+2026-11-25 02:00:36 [DEBUG  ] framework.pages.LoginPage: Esperando elemento visible: css selector=[data-test='error']
+2026-11-25 02:00:36 [DEBUG  ] framework.pages.LoginPage: Texto leido de css selector=[data-test='error']: 'Epic sadface: Password is required'
+2026-11-25 02:00:36 [INFO   ] framework.pages.LoginPage: Mensaje de error mostrado: 'Epic sadface: Password is required'
+2026-11-25 02:00:36 [INFO   ] framework.conftest: RESULTADO: tests/ui/test_login.py::TestLogin::test_login_fallido_muestra_mensaje_de_error[password_vacia] -> PASSED (0.68s)
+2026-11-25 02:00:36 [INFO   ] framework.conftest: Cerrando Chrome
