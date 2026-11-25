@@ -4,106 +4,106 @@
 
 ---
 
-## En pocas palabras
+## Resumen
 
-Este proyecto es un **robot que prueba un sitio web de forma automática**, como lo haría una persona del equipo de calidad (QA), pero en minutos y sin cansarse.
+Framework de automatización de pruebas que valida, sin intervención manual, el funcionamiento de una tienda online de práctica ([saucedemo.com](https://www.saucedemo.com/)) y de una API REST pública.
 
-El robot abre el navegador, entra a una tienda online de práctica ([saucedemo.com](https://www.saucedemo.com/)), inicia sesión, recorre el catálogo, agrega productos al carrito, **completa una compra** y **verifica que todo funcione como debe**. Si algo falla:
+Las pruebas automatizadas ejecutan en un navegador real los mismos recorridos que haría un cliente (inicio de sesión, navegación del catálogo, carrito y compra completa) y verifican en cada paso que el sistema responda de la forma esperada. Ante una falla, el framework genera automáticamente:
 
-- 📸 **saca una foto de la pantalla** en el momento del error,
-- 📝 **deja un registro paso a paso** de lo que hizo,
-- 📊 **arma un reporte visual** con lo que pasó y lo que falló.
+- **una captura de pantalla** del momento exacto del error,
+- **un registro detallado** (log) de cada paso ejecutado,
+- **un reporte HTML** con el resultado y la duración de cada prueba.
 
-Además prueba una **API**: la "puerta trasera" por la que las aplicaciones intercambian datos entre sí, sin pantalla de por medio. El robot le hace pedidos (consultar, crear y borrar información) y controla que las respuestas sean correctas. Es la misma tarea que hace un QA cuando valida que una app móvil y su servidor "se entiendan".
+También incluye pruebas de **API**, la interfaz que usan las aplicaciones para intercambiar datos entre sí (por ejemplo, una app móvil con su servidor). Se valida que las consultas, altas y bajas de información devuelvan las respuestas correctas, tanto en escenarios exitosos como de error.
 
-### 🎬 Mirá al robot en acción
+### Demostración
 
-![El robot completando una compra en la tienda de práctica y luego probando dos casos de error](docs/img/robot_en_accion.gif)
+![Ejecución automatizada de una compra completa y de dos escenarios de error](docs/img/demo_automatizacion.gif)
 
-*Grabación real del robot. El recuadro rojo marca el elemento con el que interactúa y el cartel de abajo explica qué está verificando. En verde, el resultado esperado; en rojo, los casos de error que el robot provoca a propósito.*
+*Ejecución real de las pruebas. El recuadro rojo indica el elemento sobre el que se actúa y el cartel inferior describe la verificación que se realiza. En verde, el resultado esperado; en rojo, los escenarios de error que se provocan de forma deliberada.*
 
-### ¿Por qué importa esto en una empresa?
+### Valor para el negocio
 
-| Sin automatización | Con este framework |
+| Pruebas manuales | Pruebas automatizadas con este framework |
 |---|---|
-| Una persona repite las mismas pruebas a mano antes de cada versión | Las pruebas corren solas con un comando |
-| Probar todo lleva horas | Lleva un par de minutos |
-| Es fácil saltearse un caso | Siempre se ejecutan todos los casos |
-| Cuando algo falla, hay que reproducirlo | Ya hay foto, registro y reporte del error |
+| Repetición manual de las mismas pruebas antes de cada versión | Ejecución completa con un solo comando |
+| Horas de trabajo por ciclo de pruebas | Un par de minutos |
+| Riesgo de omitir casos | La misma cobertura en cada ejecución |
+| Fallas difíciles de reproducir | Evidencia automática: captura, log y reporte |
 
-### Qué demuestra este proyecto
+### Competencias aplicadas
 
-- **Diseño de casos de prueba**: caminos felices (todo sale bien) y caminos negativos (contraseña incorrecta, usuario bloqueado, campos vacíos).
-- **Código ordenado y fácil de mantener**: si la página cambia, se corrige en un solo lugar (patrón *Page Object Model*).
-- **Pruebas guiadas por datos**: los usuarios y productos a probar están en planillas (CSV/JSON). Se agregan casos nuevos **sin programar**.
-- **Evidencia y trazabilidad**: reportes, capturas de pantalla y registros detallados.
-- **Trabajo profesional con Git**: cada funcionalidad se desarrolló en una rama propia y se integró después (ver historial de commits).
+- **Diseño de casos de prueba**: escenarios positivos y negativos (credenciales inválidas, usuario bloqueado, campos obligatorios vacíos).
+- **Arquitectura mantenible**: patrón *Page Object Model*. Un cambio en la interfaz se corrige en un único lugar.
+- **Pruebas guiadas por datos** (*data-driven testing*): los casos se definen en archivos CSV y JSON. Incorporar uno nuevo no requiere modificar código.
+- **Evidencia y trazabilidad**: reportes, capturas de pantalla y logs detallados.
+- **Control de versiones con Git**: cada funcionalidad se desarrolló en una rama dedicada y se integró mediante *merge* (ver historial de commits).
 
-### El recorrido que hace el robot
+### Flujo cubierto
 
-Así recorre la tienda, igual que lo haría un cliente. Las flechas punteadas son los **casos negativos**: el robot se equivoca a propósito para comprobar que el sitio muestre el error correcto.
+Recorrido de compra validado de punta a punta. Las flechas punteadas representan los **escenarios negativos**: se ingresan datos inválidos de forma deliberada para verificar que el sistema muestre el mensaje de error correspondiente.
 
 ```mermaid
 flowchart LR
-    A["🔐 Iniciar sesión"] --> B["🛍️ Ver catálogo"]
-    B --> C["🛒 Agregar productos"]
-    C --> D["📋 Revisar carrito"]
-    D --> E["✍️ Datos del comprador"]
-    E --> F["💲 Resumen y total"]
-    F --> G["✅ Compra confirmada"]
-    A -. "usuario bloqueado o clave incorrecta" .-> X["❌ Mensaje de error"]
-    E -. "formulario incompleto" .-> Y["❌ Mensaje de error"]
+    A["Inicio de sesión"] --> B["Catálogo"]
+    B --> C["Agregar productos"]
+    C --> D["Carrito"]
+    D --> E["Datos del comprador"]
+    E --> F["Resumen y total"]
+    F --> G["Compra confirmada"]
+    A -. "usuario bloqueado o clave incorrecta" .-> X["Mensaje de error"]
+    E -. "formulario incompleto" .-> Y["Mensaje de error"]
 ```
 
-### Paso a paso
+### Evidencia paso a paso
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/img/01_login.png" alt="Paso 1: el robot escribe usuario y contraseña"></td>
-    <td width="50%"><img src="docs/img/02_catalogo.png" alt="Paso 2: el robot verifica el catálogo"></td>
+    <td width="50%"><img src="docs/img/01_login.png" alt="Paso 1: ingreso de usuario y contraseña"></td>
+    <td width="50%"><img src="docs/img/02_catalogo.png" alt="Paso 2: verificación del catálogo"></td>
   </tr>
   <tr>
-    <td><img src="docs/img/03_agregar_productos.png" alt="Paso 3: el robot agrega dos productos y el carrito muestra 2"></td>
-    <td><img src="docs/img/04_carrito.png" alt="Paso 4: el robot revisa el carrito"></td>
+    <td><img src="docs/img/03_agregar_productos.png" alt="Paso 3: se agregan dos productos y el carrito indica 2"></td>
+    <td><img src="docs/img/04_carrito.png" alt="Paso 4: verificación del contenido del carrito"></td>
   </tr>
   <tr>
-    <td><img src="docs/img/05_datos_comprador.png" alt="Paso 5: el robot completa los datos del comprador"></td>
-    <td><img src="docs/img/06_resumen_total.png" alt="Paso 6: el robot controla subtotal, impuesto y total"></td>
+    <td><img src="docs/img/05_datos_comprador.png" alt="Paso 5: carga de los datos del comprador"></td>
+    <td><img src="docs/img/06_resumen_total.png" alt="Paso 6: verificación de subtotal, impuesto y total"></td>
   </tr>
   <tr>
     <td colspan="2" align="center"><img src="docs/img/07_compra_confirmada.png" alt="Compra confirmada" width="50%"></td>
   </tr>
 </table>
 
-**Casos negativos**: el robot se equivoca a propósito y verifica que el sitio lo detecte.
+**Escenarios negativos**: se fuerzan errores de forma deliberada para verificar que el sistema los detecte y los informe correctamente.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/img/08_error_usuario_bloqueado.png" alt="Usuario bloqueado: el sitio muestra el error"></td>
-    <td width="50%"><img src="docs/img/09_error_formulario_incompleto.png" alt="Formulario sin nombre: el sitio muestra el error"></td>
+    <td width="50%"><img src="docs/img/08_error_usuario_bloqueado.png" alt="Usuario bloqueado: el sistema muestra el mensaje de error"></td>
+    <td width="50%"><img src="docs/img/09_error_formulario_incompleto.png" alt="Formulario sin nombre: el sistema muestra el mensaje de error"></td>
   </tr>
 </table>
 
-### Qué se prueba hoy
+### Cobertura actual
 
-| Área | Qué verifica el robot | Casos |
+| Área | Qué se verifica | Casos |
 |---|---|---|
-| 🔐 Inicio de sesión | Que los usuarios válidos entren y los inválidos vean el mensaje de error correcto | 6 |
-| 🛍️ Catálogo | Que se vean los productos, sus precios, el menú y el filtro | 4 |
-| 🛒 Carrito | Que al agregar un producto aparezca en el carrito con el precio correcto | 4 |
-| 💳 Compra (checkout) | La compra completa de punta a punta, que el total sume bien (productos + impuestos) y que el formulario incompleto muestre error | 5 |
-| 🔌 API | Consultar, crear y borrar datos; que un pedido inválido devuelva el error correcto; flujos donde un pedido usa la respuesta del anterior | 9 |
+| Inicio de sesión | Acceso de usuarios válidos y mensaje de error correcto para usuarios inválidos o bloqueados | 6 |
+| Catálogo | Visualización de productos, precios, menú y filtro de orden | 4 |
+| Carrito | Que cada producto agregado figure en el carrito con el precio correcto | 4 |
+| Compra (checkout) | Compra completa de punta a punta, cálculo del total (productos + impuestos) y validación de campos obligatorios | 5 |
+| API REST | Consultas, altas y bajas; respuesta ante recursos inexistentes; peticiones encadenadas | 9 |
 | | **Total** | **28** |
 
-> 🚧 **En desarrollo:** capturas dentro del reporte y ejecución automática en la nube (GitHub Actions).
+> **En desarrollo:** capturas integradas en el reporte HTML y ejecución continua en GitHub Actions.
 
-### Un problema real que resolví
+### Caso de estudio: diagnóstico de pruebas inestables
 
-Al sumar el flujo de compra, algunas pruebas empezaron a fallar **al azar**: a veces pasaban y a veces no. Usando las fotos y el registro que genera el propio framework, encontré la causa. Después de iniciar sesión, Chrome mostraba un aviso de *"contraseña filtrada"* (la tienda de práctica usa una clave pública) que **bloqueaba los clics del robot**.
+Al incorporar el flujo de compra, algunas pruebas comenzaron a fallar de forma intermitente. A partir de las capturas y los logs que genera el propio framework se identificó la causa: después del inicio de sesión, Chrome mostraba una alerta de *"contraseña filtrada"* (la tienda de práctica utiliza una clave pública) que bloqueaba las interacciones con la página.
 
-La solución fue configurar el navegador de pruebas para que no muestre ese aviso. Además, el robot ahora espera a que el carrito se actualice antes de avanzar. Resultado: **la suite pasa completa de forma estable**.
+La solución consistió en desactivar esa alerta en la configuración del navegador de pruebas y en agregar una espera explícita hasta que el carrito refleje cada producto agregado. Con estos cambios, la suite se ejecuta completa de forma estable.
 
-> Las pruebas inestables (*flaky tests*) son uno de los problemas más comunes en automatización. Este caso muestra por qué invertir en buenas evidencias (capturas y logs) ahorra tiempo de diagnóstico.
+> Las pruebas inestables (*flaky tests*) son uno de los problemas más frecuentes en automatización. Este caso muestra el valor de contar con buena evidencia (capturas y logs) para reducir el tiempo de diagnóstico.
 
 ---
 
@@ -206,7 +206,7 @@ source venv/bin/activate       # Linux / Mac
 pip install -r requirements.txt
 ```
 
-No hace falta descargar ChromeDriver: `webdriver-manager` lo descarga automáticamente según la versión de Chrome instalada.
+No es necesario descargar ChromeDriver: `webdriver-manager` lo descarga automáticamente según la versión de Chrome instalada.
 
 ### Cómo ejecutar las pruebas
 
@@ -243,7 +243,7 @@ Los datos están separados del código, en `data/`. Cada fila o elemento se conv
 | usuario_bloqueado | locked_out_user | secret_sauce | error | Epic sadface: Sorry, this user has been locked out. |
 | … | | | | |
 
-La columna `caso` es el nombre con el que aparece el test en el reporte, por ejemplo `test_login_fallido_muestra_mensaje_de_error[usuario_bloqueado]`. **Para agregar un caso nuevo alcanza con sumar una fila al CSV.**
+La columna `caso` es el nombre con el que aparece el test en el reporte, por ejemplo `test_login_fallido_muestra_mensaje_de_error[usuario_bloqueado]`. **Para incorporar un caso nuevo basta con agregar una fila al CSV.**
 
 **`data/productos.json`**: lista de productos con su precio esperado. El test agrega cada uno al carrito y verifica que aparezca con ese precio.
 
@@ -313,7 +313,7 @@ Las contraseñas se enmascaran (`*****`) en el log.
 
 ### Imágenes del README
 
-Las capturas y el GIF de este README **no están editadas a mano**: las genera un script que recorre la tienda con los mismos Page Objects que usan los tests. En cada paso inyecta en la página el recuadro rojo y el cartel explicativo antes de sacar la captura. Para regenerarlas, por ejemplo si cambia el sitio:
+Las capturas y el GIF de este README **no se editan manualmente**: los genera un script que recorre la tienda con los mismos Page Objects que usan los tests. En cada paso inyecta en la página el recuadro rojo y el cartel explicativo antes de tomar la captura. Para regenerarlas (por ejemplo, ante cambios en el sitio):
 
 ```bash
 python scripts/generar_evidencia_visual.py
