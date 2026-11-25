@@ -7,12 +7,15 @@ from pages.base_page import BasePage
 
 class CartPage(BasePage):
     # Localizadores
+    CART_LIST = (By.CLASS_NAME, "cart_list")
     CART_ITEMS = (By.CLASS_NAME, "cart_item")
     CART_ITEM_NAME = (By.CLASS_NAME, "inventory_item_name")
     CART_ITEM_PRICE = (By.CLASS_NAME, "inventory_item_price")
+    CHECKOUT_BUTTON = (By.ID, "checkout")
 
     def wait_until_loaded(self):
         self.wait_for_url("/cart.html")
+        self.find(self.CART_LIST)
         self.log.info("Pagina del carrito cargada")
         return self
 
@@ -35,3 +38,7 @@ class CartPage(BasePage):
         }
         self.log.info("Productos y precios en el carrito: %s", productos)
         return productos
+
+    def go_to_checkout(self):
+        self.log.info("Iniciando el checkout")
+        self.click(self.CHECKOUT_BUTTON)
