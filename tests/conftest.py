@@ -18,11 +18,8 @@ import os
 from datetime import datetime
 
 import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 
+from utils.driver_factory import create_chrome_driver
 from utils.logger import get_logger
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -67,26 +64,9 @@ def pytest_runtest_logstart(nodeid, location):
 def driver(request):
     """Inicializa el WebDriver de Chrome para un test y lo cierra al finalizar."""
     headless = request.config.getoption("--headless")
-    options = Options()
-    options.add_argument("--start-maximized")
-
-    # Desactiva el gestor de contrasenas de Chrome. Sin esto, al hacer login con
-    # 'secret_sauce' (una clave publica) Chrome muestra el aviso "contrasena filtrada",
-    # que bloquea los clicks sobre la pagina y hace fallar los tests al azar.
-    options.add_experimental_option("prefs", {
-        "credentials_enable_service": False,
-        "profile.password_manager_enabled": False,
-        "profile.password_manager_leak_detection": False,
-    })
-    options.add_argument("--disable-features=PasswordLeakDetection,PasswordCheck")
-
-    if headless:
-        options.add_argument("--headless=new")
-        options.add_argument("--window-size=1920,1080")
 
     log.info("Iniciando Chrome (headless=%s)", headless)
-    service = Service(ChromeDriverManager().install())
-    navegador = webdriver.Chrome(service=service, options=options)
+    navegador = create_chrome_driver(headless=headless)
 
     yield navegador
 
