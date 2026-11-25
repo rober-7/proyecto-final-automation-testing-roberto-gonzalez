@@ -1,0 +1,15 @@
+{
+  "comprador": {
+    "nombre": "Roberto",
+    "apellido": "Gonzalez",
+    "codigo_postal": "1425"
+  },
+  "productos": ["Sauce Labs Backpack", "Sauce Labs Bike Light"],
+  "tasa_impuesto": "0.08",
+  "mensaje_confirmacion": "Thank you for your order!",
+  "formularios_incompletos": [
+    {"caso": "sin_nombre", "nombre": "", "apellido": "Gonzalez", "codigo_postal": "1425", "mensaje_error": "Error: First Name is required"},
+    {"caso": "sin_apellido", "nombre": "Roberto", "apellido": "", "codigo_postal": "1425", "mensaje_error": "Error: Last Name is required"},
+    {"caso": "sin_codigo_postal", "nombre": "Roberto", "apellido": "Gonzalez", "codigo_postal": "", "mensaje_error": "Error: Postal Code is required"}
+  ]
+}
