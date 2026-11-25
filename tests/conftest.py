@@ -60,6 +60,16 @@ def driver(request):
     options = Options()
     options.add_argument("--start-maximized")
 
+    # Desactiva el gestor de contrasenas de Chrome. Sin esto, al hacer login con
+    # 'secret_sauce' (una clave publica) Chrome muestra el aviso "contrasena filtrada",
+    # que bloquea los clicks sobre la pagina y hace fallar los tests al azar.
+    options.add_experimental_option("prefs", {
+        "credentials_enable_service": False,
+        "profile.password_manager_enabled": False,
+        "profile.password_manager_leak_detection": False,
+    })
+    options.add_argument("--disable-features=PasswordLeakDetection,PasswordCheck")
+
     if headless:
         options.add_argument("--headless=new")
         options.add_argument("--window-size=1920,1080")
