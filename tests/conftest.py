@@ -9,6 +9,8 @@ Uso:
     pytest tests/                        # con ventana de Chrome visible
     pytest tests/ --headless             # sin interfaz grafica (mas rapido, ideal para CI)
     pytest tests/ --log-cli-level=INFO   # muestra los pasos del log en la consola
+    pytest -m api                        # solo pruebas de API
+    pytest -m ui --headless              # solo pruebas de UI
 """
 
 import logging
@@ -47,6 +49,14 @@ def pytest_configure(config):
     os.makedirs(LOGS_DIR, exist_ok=True)
     for nombre in NOISY_LOGGERS:
         logging.getLogger(nombre).setLevel(logging.WARNING)
+
+
+def pytest_collection_modifyitems(items):
+    """Marca cada test como 'ui' o 'api' segun su carpeta (permite: pytest -m api)."""
+    for item in items:
+        carpeta = item.path.parent.name
+        if carpeta in ("ui", "api"):
+            item.add_marker(carpeta)
 
 
 def pytest_runtest_logstart(nodeid, location):
