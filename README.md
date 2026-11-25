@@ -95,7 +95,15 @@ flowchart LR
 | API REST | Consultas, altas y bajas; respuesta ante recursos inexistentes; peticiones encadenadas | 9 |
 | | **Total** | **28** |
 
-> **En desarrollo:** capturas integradas en el reporte HTML y ejecución continua en GitHub Actions.
+> **En desarrollo:** ejecución continua en GitHub Actions.
+
+### Reporte de resultados
+
+Cada ejecución genera un reporte HTML con el estado y la duración de cada prueba. Cuando una prueba de interfaz falla, el reporte incluye el error exacto, el registro de pasos y **la captura de pantalla del momento de la falla**, sin necesidad de reproducir el problema.
+
+![Reporte HTML con una prueba fallida y su captura de pantalla incrustada](docs/img/reporte_html.png)
+
+*Ejemplo con una falla provocada deliberadamente para ilustrar el reporte: se esperaba un precio de $19.99 y el sitio muestra $29.99. A la derecha, la captura tomada automáticamente en ese instante.*
 
 ### Caso de estudio: diagnóstico de pruebas inestables
 
@@ -161,7 +169,7 @@ proyecto-final-automation-testing-roberto-gonzalez/
 │   └── generar_evidencia_visual.py  # Genera las capturas y el GIF del README
 ├── docs/img/                  # Imágenes del README (capturas paso a paso y GIF)
 ├── reports/                   # Salidas de la ejecución
-│   ├── reporte.html           #   Reporte HTML
+│   ├── reporte.html           #   Reporte HTML de la última ejecución (con capturas incrustadas)
 │   ├── screenshots/           #   Capturas automáticas de tests fallidos
 │   └── logs/execution.log     #   Log detallado de la última ejecución
 ├── pytest.ini                 # Configuración de pytest y del logging
@@ -210,12 +218,14 @@ No es necesario descargar ChromeDriver: `webdriver-manager` lo descarga automát
 
 ### Cómo ejecutar las pruebas
 
+El reporte HTML se genera en cada ejecución (configurado en `pytest.ini`), por lo que no es necesario indicarlo en el comando.
+
 ```bash
-# Toda la suite, con reporte HTML
-pytest --html=reports/reporte.html --self-contained-html
+# Toda la suite (UI + API)
+pytest
 
 # Sin abrir la ventana del navegador (más rápido, ideal para CI)
-pytest --headless --html=reports/reporte.html --self-contained-html
+pytest --headless
 
 # Ver los pasos del log en vivo en la consola
 pytest --headless --log-cli-level=INFO
@@ -281,14 +291,20 @@ En el log, cada petición queda registrada con su método, URL, código de respu
 
 #### Reporte HTML: `reports/reporte.html`
 
-Se abre con cualquier navegador. Contiene:
-- **Resumen**: cantidad de tests pasados (*Passed*), fallados (*Failed*) y con error (*Errors*), y la duración total.
-- **Tabla de resultados**: un renglón por test con su estado y duración. Los tests parametrizados muestran el caso entre corchetes.
-- **Detalle de cada test**: al expandir un renglón se ve el log de pasos (*Captured log*) y, si falló, el error exacto.
+Es un archivo autocontenido (incluye estilos e imágenes) que se abre con cualquier navegador. Contiene:
+
+| Sección | Qué muestra |
+|---|---|
+| **Environment** | Versión de Python y librerías, sitio y API bajo prueba, navegador utilizado |
+| **Summary** | Cantidad de pruebas *Passed*, *Failed*, *Errors* y *Skipped*, y la duración total. Las casillas permiten filtrar la tabla por estado |
+| **Tabla de resultados** | Una fila por prueba con su estado, tipo (**UI** o **API**), nombre y duración. Las pruebas parametrizadas muestran el caso entre corchetes, por ejemplo `[usuario_bloqueado]` |
+| **Detalle de cada prueba** | Al expandir una fila se ve el registro de pasos (*Captured log*). Si la prueba falló, también el error exacto con los valores esperado y obtenido, y **la captura de pantalla incrustada** |
+
+Las pruebas fallidas aparecen expandidas por defecto, para ir directo al problema.
 
 #### Capturas de pantalla: `reports/screenshots/`
 
-Cuando un test de UI falla, se guarda automáticamente una captura con el nombre del test y la fecha/hora, por ejemplo `test_login_exitoso_redirige_al_inventario_20261118_221733.png`.
+Cuando una prueba de UI falla, además de incrustarse en el reporte, la captura se guarda como archivo con el nombre del test y la fecha/hora, por ejemplo `test_login_fallido_muestra_mensaje_de_error_usuario_bloqueado_20261125_015734.png`. Estos archivos no se versionan en git porque se generan en cada ejecución.
 
 #### Log de ejecución: `reports/logs/execution.log`
 
