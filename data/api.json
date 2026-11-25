@@ -1,0 +1,13 @@
+{
+  "base_url": "https://jsonplaceholder.typicode.com",
+  "total_posts": 100,
+  "posts_existentes": [1, 50, 100],
+  "post_inexistente": 9999,
+  "nuevo_post": {
+    "title": "Automatizacion de pruebas con Python",
+    "body": "Post creado desde el framework de automatizacion del proyecto final.",
+    "userId": 1
+  },
+  "id_asignado_a_post_nuevo": 101,
+  "usuario_para_flujo": 1
+}
