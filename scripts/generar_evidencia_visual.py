@@ -1,4 +1,4 @@
-"""Genera las imagenes del README: capturas paso a paso y un GIF del robot comprando.
+"""Genera las imagenes del README: capturas paso a paso y un GIF de la ejecucion.
 
 Recorre saucedemo.com con los mismos Page Objects que usan los tests. En cada
 paso resalta en rojo el elemento con el que interactua y muestra un cartel
@@ -15,6 +15,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
 from PIL import Image  # noqa: E402
+from selenium.webdriver.support.ui import WebDriverWait  # noqa: E402
 
 from pages import (  # noqa: E402
     CartPage,
@@ -96,7 +97,15 @@ def limpiar(driver):
     )
 
 
+def esperar_imagenes(driver):
+    """Espera a que terminen de cargar las imagenes visibles (iconos, fotos de productos)."""
+    WebDriverWait(driver, 10).until(lambda d: d.execute_script(
+        "return Array.from(document.images).every(img => img.complete && img.naturalWidth > 0);"
+    ))
+
+
 def capturar(driver, nombre_archivo, titulo, detalle="", tipo="", resaltados=(), marcados=()):
+    esperar_imagenes(driver)
     resaltar(driver, resaltados)
     resaltar(driver, marcados, clase="qa-marcador")
     mostrar_cartel(driver, titulo, detalle, tipo)
@@ -117,16 +126,16 @@ def recorrer_compra_exitosa(driver):
     login_page.type(LoginPage.USERNAME_INPUT, usuario["username"])
     login_page.type(LoginPage.PASSWORD_INPUT, usuario["password"])
     capturas.append(capturar(
-        driver, "01_login.png", "Paso 1 · Inicia sesión",
-        f"Escribe el usuario '{usuario['username']}' y la contraseña",
+        driver, "01_login.png", "Paso 1 · Inicio de sesión",
+        f"Se ingresan el usuario '{usuario['username']}' y la contraseña",
         resaltados=[LoginPage.USERNAME_INPUT, LoginPage.PASSWORD_INPUT],
     ))
     login_page.click(LoginPage.LOGIN_BUTTON)
 
     inventory_page = InventoryPage(driver).wait_until_loaded()
     capturas.append(capturar(
-        driver, "02_catalogo.png", "Paso 2 · Entra al catálogo",
-        "Verifica el título 'Products', los productos y sus precios",
+        driver, "02_catalogo.png", "Paso 2 · Catálogo de productos",
+        "Se verifica el título 'Products', los productos y sus precios",
         resaltados=[InventoryPage.PAGE_TITLE],
     ))
 
@@ -134,16 +143,16 @@ def recorrer_compra_exitosa(driver):
         inventory_page.add_product_to_cart(nombre)
     driver.execute_script("window.scrollTo(0, 0);")
     capturas.append(capturar(
-        driver, "03_agregar_productos.png", "Paso 3 · Agrega productos al carrito",
-        f"{' y '.join(CHECKOUT['productos'])} · el contador del carrito pasa a {len(CHECKOUT['productos'])}",
+        driver, "03_agregar_productos.png", "Paso 3 · Productos agregados al carrito",
+        f"{' y '.join(CHECKOUT['productos'])} · el contador del carrito indica {len(CHECKOUT['productos'])}",
         resaltados=[InventoryPage.CART_BADGE],
     ))
 
     inventory_page.go_to_cart()
     cart_page = CartPage(driver).wait_until_loaded()
     capturas.append(capturar(
-        driver, "04_carrito.png", "Paso 4 · Revisa el carrito",
-        "Comprueba que estén los productos elegidos con su precio",
+        driver, "04_carrito.png", "Paso 4 · Verificación del carrito",
+        "Se verifica que figuren los productos elegidos con su precio",
         resaltados=[CartPage.CART_LIST],
     ))
 
@@ -151,8 +160,8 @@ def recorrer_compra_exitosa(driver):
     info_page = CheckoutInfoPage(driver).wait_until_loaded()
     info_page.fill_buyer_info(comprador["nombre"], comprador["apellido"], comprador["codigo_postal"])
     capturas.append(capturar(
-        driver, "05_datos_comprador.png", "Paso 5 · Completa los datos del comprador",
-        "Nombre, apellido y código postal leídos desde data/checkout.json",
+        driver, "05_datos_comprador.png", "Paso 5 · Datos del comprador",
+        "Nombre, apellido y código postal tomados de data/checkout.json",
         resaltados=[CheckoutInfoPage.FIRST_NAME_INPUT, CheckoutInfoPage.LAST_NAME_INPUT,
                     CheckoutInfoPage.POSTAL_CODE_INPUT],
     ))
@@ -161,7 +170,7 @@ def recorrer_compra_exitosa(driver):
     overview_page = CheckoutOverviewPage(driver).wait_until_loaded()
     subtotal, impuesto, total = overview_page.get_subtotal(), overview_page.get_tax(), overview_page.get_total()
     capturas.append(capturar(
-        driver, "06_resumen_total.png", "Paso 6 · Controla que el total esté bien calculado",
+        driver, "06_resumen_total.png", "Paso 6 · Verificación del total",
         f"${subtotal} (productos) + ${impuesto} (impuesto 8 %) = ${total}",
         marcados=[CheckoutOverviewPage.SUBTOTAL_LABEL, CheckoutOverviewPage.TAX_LABEL,
                   CheckoutOverviewPage.TOTAL_LABEL],
@@ -171,7 +180,7 @@ def recorrer_compra_exitosa(driver):
     complete_page = CheckoutCompletePage(driver).wait_until_loaded()
     capturas.append(capturar(
         driver, "07_compra_confirmada.png", "✔ Compra confirmada",
-        f"El robot verifica el mensaje '{complete_page.get_confirmation_message()}'",
+        f"Se verifica el mensaje de confirmación '{complete_page.get_confirmation_message()}'",
         tipo="ok", resaltados=[CheckoutCompletePage.COMPLETE_HEADER],
     ))
     return capturas
@@ -185,8 +194,8 @@ def recorrer_casos_negativos(driver):
     login_page.login(USUARIO_BLOQUEADO["username"], USUARIO_BLOQUEADO["password"])
     login_page.get_error_message()
     capturas.append(capturar(
-        driver, "08_error_usuario_bloqueado.png", "✘ Caso negativo · Usuario bloqueado",
-        "El robot verifica que el sitio no deje entrar y muestre el error correcto",
+        driver, "08_error_usuario_bloqueado.png", "✘ Escenario negativo · Usuario bloqueado",
+        "El sistema rechaza el acceso y muestra el mensaje de error esperado",
         tipo="error", resaltados=[LoginPage.ERROR_MESSAGE],
     ))
 
@@ -202,8 +211,8 @@ def recorrer_casos_negativos(driver):
     info_page.click_continue()
     info_page.get_error_message()
     capturas.append(capturar(
-        driver, "09_error_formulario_incompleto.png", "✘ Caso negativo · Formulario incompleto",
-        "Sin nombre, el sitio no deja avanzar y avisa 'First Name is required'",
+        driver, "09_error_formulario_incompleto.png", "✘ Escenario negativo · Formulario incompleto",
+        "Sin nombre, el sistema impide continuar y muestra 'First Name is required'",
         tipo="error", resaltados=[CheckoutInfoPage.ERROR_MESSAGE, CheckoutInfoPage.FIRST_NAME_INPUT],
     ))
     return capturas
@@ -237,7 +246,7 @@ def main():
         driver.quit()
 
     print("Armando el GIF...")
-    armar_gif(capturas_compra + capturas_negativas, "robot_en_accion.gif")
+    armar_gif(capturas_compra + capturas_negativas, "demo_automatizacion.gif")
 
 
 if __name__ == "__main__":
