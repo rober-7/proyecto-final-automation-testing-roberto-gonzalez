@@ -2,7 +2,10 @@
 
 [![Pruebas automatizadas](https://github.com/rober-7/proyecto-final-automation-testing-roberto-gonzalez/actions/workflows/tests.yml/badge.svg)](https://github.com/rober-7/proyecto-final-automation-testing-roberto-gonzalez/actions/workflows/tests.yml)
 
-**Autor:** Roberto González · Proyecto final del curso de *Automation Testing* (QA)
+**Autor:** Roberto González ([GitHub](https://github.com/rober-7)) · Proyecto final del curso de *Automation Testing* (QA)
+
+- **Contenido:** [Resumen](#resumen) · [Inicio rápido](#inicio-rápido) · [Demostración](#demostración) · [Cobertura](#cobertura-actual) · [Reporte](#reporte-de-resultados) · [Caso de estudio](#caso-de-estudio-diagnóstico-de-pruebas-inestables)
+- **Parte técnica:** [Tecnologías](#tecnologías-utilizadas) · [Estructura](#estructura-del-proyecto) · [Instalación](#instalación-de-dependencias) · [Ejecución](#cómo-ejecutar-las-pruebas) · [Datos de prueba](#datos-de-prueba-y-parametrización) · [API](#pruebas-de-api) · [Resultados](#cómo-interpretar-los-resultados) · [CI](#integración-continua-github-actions) · [Agregar una prueba](#cómo-agregar-una-prueba-nueva) · [Decisiones técnicas](#decisiones-técnicas) · [Próximos pasos](#próximos-pasos)
 
 ---
 
@@ -17,6 +20,18 @@ Las pruebas automatizadas ejecutan en un navegador real los mismos recorridos qu
 - **un reporte HTML** con el resultado y la duración de cada prueba.
 
 También incluye pruebas de **API**, la interfaz que usan las aplicaciones para intercambiar datos entre sí (por ejemplo, una app móvil con su servidor). Se valida que las consultas, altas y bajas de información devuelvan las respuestas correctas, tanto en escenarios exitosos como de error.
+
+### Inicio rápido
+
+Con **Python 3.10+** y **Google Chrome** instalados, tres comandos alcanzan para ejecutar la suite completa:
+
+```bash
+git clone https://github.com/rober-7/proyecto-final-automation-testing-roberto-gonzalez.git && cd proyecto-final-automation-testing-roberto-gonzalez
+pip install -r requirements.txt
+pytest
+```
+
+Al finalizar, el resultado queda en `reports/reporte.html`. Para trabajar dentro de un entorno virtual o ejecutar subconjuntos de pruebas, ver [Instalación](#instalación-de-dependencias) y [Ejecución](#cómo-ejecutar-las-pruebas).
 
 ### Demostración
 
@@ -356,3 +371,95 @@ Las imágenes se guardan en `docs/img/`. El GIF se arma con Pillow, incluida en 
 ### Independencia de los tests
 
 Cada test abre su propio navegador y, si lo necesita, inicia su propia sesión con el fixture `inventory_page`. Por eso la falla de un test no afecta a los demás, y los tests pueden ejecutarse en cualquier orden o de forma individual.
+
+### Cómo agregar una prueba nueva
+
+El framework está pensado para crecer sin duplicar código. Cualquier prueba nueva obtiene automáticamente el navegador, el registro en el log, la captura ante fallos, la inclusión en el reporte y el marcador `ui` o `api` según su carpeta.
+
+**1. Un caso nuevo de un flujo existente: sin escribir código.** Basta con agregar una fila al CSV o un elemento al JSON correspondiente. Por ejemplo, para probar otro usuario en el login:
+
+```csv
+caso,username,password,resultado_esperado,mensaje_error
+usuario_con_errores,error_user,secret_sauce,exito,
+```
+
+**2. Una prueba nueva sobre páginas existentes.** Se usan los métodos de los Page Objects y el fixture `inventory_page`, que entrega la sesión ya iniciada:
+
+```python
+# tests/ui/test_carrito.py
+def test_agregar_dos_productos_muestra_contador_en_2(self, inventory_page):
+    inventory_page.add_product_to_cart("Sauce Labs Backpack")
+    inventory_page.add_product_to_cart("Sauce Labs Onesie")
+
+    assert inventory_page.get_cart_badge_count() == 2
+```
+
+**3. Una página nueva.** Se crea una clase en `pages/` que hereda de `BasePage`, declara sus localizadores y expone acciones de negocio. Después se exporta en `pages/__init__.py`:
+
+```python
+# pages/product_detail_page.py
+from selenium.webdriver.common.by import By
+
+from pages.base_page import BasePage
+
+
+class ProductDetailPage(BasePage):
+    BACK_BUTTON = (By.ID, "back-to-products")
+
+    def wait_until_loaded(self):
+        self.wait_for_url("/inventory-item.html")
+        return self
+
+    def go_back_to_catalog(self):
+        self.log.info("Volviendo al catalogo")
+        self.click(self.BACK_BUTTON)
+```
+
+**4. Un endpoint nuevo de la API.** Se usa el fixture `api_client` y `assert_estructura` para validar la respuesta:
+
+```python
+# tests/api/test_usuarios.py
+from utils.api_client import assert_estructura
+
+
+def test_obtener_usuario_por_id(api_client):
+    respuesta = api_client.get("/users/1")
+
+    assert respuesta.status_code == 200
+    assert_estructura(respuesta.json(), {"id": int, "name": str, "username": str, "email": str,
+                                         "address": dict, "phone": str, "website": str, "company": dict})
+```
+
+### Decisiones técnicas
+
+| Decisión | Motivo |
+|---|---|
+| **Page Object Model** con los localizadores dentro de cada página | Un cambio en el sitio se corrige en un único archivo y los tests se leen como pasos de negocio |
+| **Esperas explícitas** (`WebDriverWait`) en lugar de pausas fijas (`time.sleep`) | Se espera solo lo necesario: las pruebas son más rápidas y estables. Las esperas toleran elementos que la página vuelve a dibujar (*stale elements*) |
+| **Un navegador nuevo por test** | Independencia total: ningún test depende de cookies, sesión o carrito de otro. El costo en tiempo se compensa con el modo headless |
+| **Datos en CSV/JSON** con `parametrize` e identificadores legibles | Se agregan casos sin tocar código y cada caso aparece con un nombre descriptivo en el reporte |
+| **`Decimal` para los montos** | Evita los errores de redondeo de `float` al validar que subtotal + impuesto = total |
+| **`conftest.py` por carpeta** | Lo común (navegador, capturas, log, reporte) vive en `tests/conftest.py`; lo específico de UI y de API, en su carpeta |
+| **Marcadores `ui`/`api` automáticos** | Permite ejecutar subconjuntos (`pytest -m api`) sin decorar cada test a mano |
+| **Cliente de API propio** sobre `requests.Session` | URL base, timeout y registro centralizados, con reutilización de conexiones |
+| **Logging en dos niveles** | `INFO` legible en el reporte y `DEBUG` completo en el archivo para depurar. Las contraseñas se enmascaran |
+| **Configuración de Chrome centralizada** (`utils/driver_factory.py`) | El mismo navegador en las pruebas locales, en CI y en el script de imágenes |
+
+### Próximos pasos
+
+Mejoras identificadas para una siguiente versión:
+
+- **Ejecución en paralelo** con `pytest-xdist`, para reducir el tiempo total de la suite.
+- **Pruebas en varios navegadores** (Firefox, Edge) mediante una opción `--browser`.
+- **Validación de esquemas** con `jsonschema`, para contratos de API más detallados.
+- **Reportes con Allure**, con historial y tendencias entre ejecuciones.
+- **Contenedor Docker**, para un entorno idéntico en local y en CI.
+- **Pruebas de accesibilidad** (axe-core) y de regresión visual.
+
+---
+
+## Autor
+
+**Roberto González** · [github.com/rober-7](https://github.com/rober-7)
+
+Proyecto final del curso de *Automation Testing*.
