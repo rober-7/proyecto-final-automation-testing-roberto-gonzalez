@@ -3,3 +3,6 @@ requests>=2.32.0
 pytest>=8.0.0
 pytest-html>=4.1.1
 webdriver-manager>=4.0.2
+
+# Solo para regenerar las imagenes del README (scripts/generar_evidencia_visual.py)
+pillow>=10.0
