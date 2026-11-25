@@ -16,6 +16,12 @@ El robot abre el navegador, entra a una tienda online de práctica ([saucedemo.c
 
 Además prueba una **API**: la "puerta trasera" por la que las aplicaciones intercambian datos entre sí, sin pantalla de por medio. El robot le hace pedidos (consultar, crear y borrar información) y controla que las respuestas sean correctas. Es la misma tarea que hace un QA cuando valida que una app móvil y su servidor "se entiendan".
 
+### 🎬 Mirá al robot en acción
+
+![El robot completando una compra en la tienda de práctica y luego probando dos casos de error](docs/img/robot_en_accion.gif)
+
+*Grabación real del robot. El recuadro rojo marca el elemento con el que interactúa y el cartel de abajo explica qué está verificando. En verde, el resultado esperado; en rojo, los casos de error que el robot provoca a propósito.*
+
 ### ¿Por qué importa esto en una empresa?
 
 | Sin automatización | Con este framework |
@@ -48,6 +54,35 @@ flowchart LR
     A -. "usuario bloqueado o clave incorrecta" .-> X["❌ Mensaje de error"]
     E -. "formulario incompleto" .-> Y["❌ Mensaje de error"]
 ```
+
+### Paso a paso
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/img/01_login.png" alt="Paso 1: el robot escribe usuario y contraseña"></td>
+    <td width="50%"><img src="docs/img/02_catalogo.png" alt="Paso 2: el robot verifica el catálogo"></td>
+  </tr>
+  <tr>
+    <td><img src="docs/img/03_agregar_productos.png" alt="Paso 3: el robot agrega dos productos y el carrito muestra 2"></td>
+    <td><img src="docs/img/04_carrito.png" alt="Paso 4: el robot revisa el carrito"></td>
+  </tr>
+  <tr>
+    <td><img src="docs/img/05_datos_comprador.png" alt="Paso 5: el robot completa los datos del comprador"></td>
+    <td><img src="docs/img/06_resumen_total.png" alt="Paso 6: el robot controla subtotal, impuesto y total"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><img src="docs/img/07_compra_confirmada.png" alt="Compra confirmada" width="50%"></td>
+  </tr>
+</table>
+
+**Casos negativos**: el robot se equivoca a propósito y verifica que el sitio lo detecte.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/img/08_error_usuario_bloqueado.png" alt="Usuario bloqueado: el sitio muestra el error"></td>
+    <td width="50%"><img src="docs/img/09_error_formulario_incompleto.png" alt="Formulario sin nombre: el sitio muestra el error"></td>
+  </tr>
+</table>
 
 ### Qué se prueba hoy
 
@@ -120,7 +155,11 @@ proyecto-final-automation-testing-roberto-gonzalez/
 ├── utils/                     # Herramientas de soporte
 │   ├── logger.py              #   Logger del framework
 │   ├── data_reader.py         #   Lectura de CSV y JSON
+│   ├── driver_factory.py      #   Creación de Chrome con la configuración común
 │   └── api_client.py          #   Cliente HTTP (Requests) con logging y validación de estructura
+├── scripts/
+│   └── generar_evidencia_visual.py  # Genera las capturas y el GIF del README
+├── docs/img/                  # Imágenes del README (capturas paso a paso y GIF)
 ├── reports/                   # Salidas de la ejecución
 │   ├── reporte.html           #   Reporte HTML
 │   ├── screenshots/           #   Capturas automáticas de tests fallidos
@@ -271,6 +310,16 @@ Registro detallado de la última ejecución. Cada test aparece delimitado por `I
 | `ERROR` | Un test falló; incluye el detalle del error |
 
 Las contraseñas se enmascaran (`*****`) en el log.
+
+### Imágenes del README
+
+Las capturas y el GIF de este README **no están editadas a mano**: las genera un script que recorre la tienda con los mismos Page Objects que usan los tests. En cada paso inyecta en la página el recuadro rojo y el cartel explicativo antes de sacar la captura. Para regenerarlas, por ejemplo si cambia el sitio:
+
+```bash
+python scripts/generar_evidencia_visual.py
+```
+
+Las imágenes se guardan en `docs/img/`. El GIF se arma con Pillow, incluida en `requirements.txt`.
 
 ### Independencia de los tests
 
