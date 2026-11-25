@@ -1,0 +1,41 @@
+# Ejecuta la suite completa (UI + API) en cada push y pull request,
+# y guarda el reporte HTML, el log y las capturas como artefactos.
+name: Pruebas automatizadas
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:  # permite ejecutarlo a mano desde la pestana Actions
+
+jobs:
+  pruebas:
+    name: UI (Selenium) + API (Requests)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Descargar el codigo
+        uses: actions/checkout@v4
+
+      - name: Instalar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar las pruebas (Chrome headless)
+        run: pytest --headless
+
+      - name: Guardar reporte, log y capturas como artefactos
+        if: always()  # se guardan aunque alguna prueba falle
+        uses: actions/upload-artifact@v4
+        with:
+          name: reporte-de-pruebas
+          path: |
+            reports/reporte.html
+            reports/logs/
+            reports/screenshots/
+          retention-days: 30

@@ -1,5 +1,7 @@
 # Framework de Automatización de Pruebas — Tienda online + API
 
+[![Pruebas automatizadas](https://github.com/rober-7/proyecto-final-automation-testing-roberto-gonzalez/actions/workflows/tests.yml/badge.svg)](https://github.com/rober-7/proyecto-final-automation-testing-roberto-gonzalez/actions/workflows/tests.yml)
+
 **Autor:** Roberto González · Proyecto final del curso de *Automation Testing* (QA)
 
 ---
@@ -38,6 +40,7 @@ También incluye pruebas de **API**, la interfaz que usan las aplicaciones para 
 - **Pruebas guiadas por datos** (*data-driven testing*): los casos se definen en archivos CSV y JSON. Incorporar uno nuevo no requiere modificar código.
 - **Evidencia y trazabilidad**: reportes, capturas de pantalla y logs detallados.
 - **Control de versiones con Git**: cada funcionalidad se desarrolló en una rama dedicada y se integró mediante *merge* (ver historial de commits).
+- **Integración continua**: las pruebas se ejecutan automáticamente en GitHub Actions con cada cambio subido al repositorio.
 
 ### Flujo cubierto
 
@@ -95,8 +98,6 @@ flowchart LR
 | API REST | Consultas, altas y bajas; respuesta ante recursos inexistentes; peticiones encadenadas | 9 |
 | | **Total** | **28** |
 
-> **En desarrollo:** ejecución continua en GitHub Actions.
-
 ### Reporte de resultados
 
 Cada ejecución genera un reporte HTML con el estado y la duración de cada prueba. Cuando una prueba de interfaz falla, el reporte incluye el error exacto, el registro de pasos y **la captura de pantalla del momento de la falla**, sin necesidad de reproducir el problema.
@@ -129,11 +130,14 @@ La solución consistió en desactivar esa alerta en la configuración del navega
 | **webdriver-manager** | Descarga automática del ChromeDriver compatible |
 | **logging** (módulo estándar) | Registro de pasos de la ejecución |
 | **Git + GitHub** | Control de versiones (una rama por funcionalidad) |
+| **GitHub Actions** | Integración continua: ejecución de la suite en cada push |
 
 ### Estructura del proyecto
 
 ```
 proyecto-final-automation-testing-roberto-gonzalez/
+├── .github/workflows/
+│   └── tests.yml              # Pipeline de GitHub Actions
 ├── pages/                     # Page Objects: CÓMO se interactúa con cada página
 │   ├── base_page.py           #   Clase base: esperas explícitas y acciones comunes
 │   ├── login_page.py          #   Pantalla de login
@@ -326,6 +330,18 @@ Registro detallado de la última ejecución. Cada test aparece delimitado por `I
 | `ERROR` | Un test falló; incluye el detalle del error |
 
 Las contraseñas se enmascaran (`*****`) en el log.
+
+### Integración continua (GitHub Actions)
+
+El workflow [`.github/workflows/tests.yml`](.github/workflows/tests.yml) se ejecuta automáticamente en cada *push* y *pull request*, y también puede lanzarse a mano desde la pestaña **Actions**. En un servidor Linux de GitHub:
+
+1. instala Python 3.12 y las dependencias de `requirements.txt`,
+2. ejecuta la suite completa (UI + API) con Chrome en modo headless,
+3. guarda el reporte HTML, el log y las capturas como **artefacto** descargable (`reporte-de-pruebas`), aunque alguna prueba falle.
+
+La insignia al inicio de este README muestra el estado de la última ejecución en verde (*passing*) o en rojo (*failing*).
+
+**Cómo ver el reporte de una ejecución:** [pestaña Actions](https://github.com/rober-7/proyecto-final-automation-testing-roberto-gonzalez/actions) → elegir la ejecución → sección **Artifacts** → descargar `reporte-de-pruebas` → abrir `reporte.html`.
 
 ### Imágenes del README
 
